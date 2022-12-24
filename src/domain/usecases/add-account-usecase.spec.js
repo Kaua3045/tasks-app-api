@@ -28,4 +28,21 @@ describe('AddAccount UseCase', () => {
     })
     expect(promise).rejects.toThrow(new MissingParamError('password'))
   })
+
+  test('Should return null if email already exists', async () => {
+    class LoadUserByEmailRepositorySpy {
+      async load(email) {
+        this.email = email
+        return this.user
+      }
+    }
+    const loadUserByEmailRepositorySpy = new LoadUserByEmailRepositorySpy()
+    const sut = new AddAccountUseCase({ loadUserByEmailRepository: loadUserByEmailRepositorySpy })
+    const addAccount = await sut.addAccount({
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    })
+    expect(addAccount).toBeNull()
+  })
 })
