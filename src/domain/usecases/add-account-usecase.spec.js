@@ -45,4 +45,26 @@ describe('AddAccount UseCase', () => {
     })
     expect(addAccount).toBeNull()
   })
+
+  test('Should throw if no LoadUserByEmailRepository is provided', async () => {
+    const sut = new AddAccountUseCase()
+    const promise = sut.addAccount({
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    })
+
+    expect(promise).rejects.toThrow()
+  })
+
+  test('Should throw if LoadUserByEmailRepository has no load method', async () => {
+    const sut = new AddAccountUseCase({})
+    const promise = sut.addAccount({
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    })
+
+    expect(promise).rejects.toThrow()
+  })
 })
