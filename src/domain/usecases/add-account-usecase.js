@@ -1,4 +1,5 @@
 const { MissingParamError } = require('../../utils/errors')
+const { UserAlreadyExistsError } = require('../errors')
 
 module.exports = class AddAccountUseCase {
   constructor({ loadUserByEmailRepository } = {}) {
@@ -17,10 +18,10 @@ module.exports = class AddAccountUseCase {
     }
 
     const user = await this.loadUserByEmailRepository.load(email)
-    if (!user) {
+    if (user) {
       // LOGIC
+      throw new UserAlreadyExistsError()
     }
-
-    return null
+    return { user: 'user' }
   }
 }

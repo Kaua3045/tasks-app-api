@@ -1,4 +1,5 @@
 const { MissingParamError } = require("../../utils/errors")
+const { UserAlreadyExistsError } = require("../errors")
 const AddAccountUseCase = require("./add-account-usecase")
 
 describe('AddAccount UseCase', () => {
@@ -29,7 +30,7 @@ describe('AddAccount UseCase', () => {
     expect(promise).rejects.toThrow(new MissingParamError('password'))
   })
 
-  test('Should return null if email already exists', async () => {
+  test('Should throw if email already exists', async () => {
     class LoadUserByEmailRepositorySpy {
       async load(email) {
         this.email = email
@@ -37,13 +38,14 @@ describe('AddAccount UseCase', () => {
       }
     }
     const loadUserByEmailRepositorySpy = new LoadUserByEmailRepositorySpy()
+    loadUserByEmailRepositorySpy.load = jest.fn().mockReturnValueOnce(true)
     const sut = new AddAccountUseCase({ loadUserByEmailRepository: loadUserByEmailRepositorySpy })
-    const addAccount = await sut.addAccount({
+    const addAccount = sut.addAccount({
       name: 'any_name',
       email: 'any_email@mail.com',
       password: 'any_password'
     })
-    expect(addAccount).toBeNull()
+    expect(addAccount).rejects.toThrow(new UserAlreadyExistsError())
   })
 
   test('Should throw if no LoadUserByEmailRepository is provided', async () => {
