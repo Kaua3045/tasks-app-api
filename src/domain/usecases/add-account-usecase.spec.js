@@ -2,6 +2,29 @@ const { MissingParamError } = require("../../utils/errors")
 const { UserAlreadyExistsError } = require("../errors")
 const AddAccountUseCase = require("./add-account-usecase")
 
+const makeLoadUserByEmailRepository = () => {
+  class LoadUserByEmailRepositorySpy {
+    async load(email) {
+      this.email = email
+      return this.user
+    }
+  }
+
+  const loadUserByEmailRepositorySpy = new LoadUserByEmailRepositorySpy()
+  return loadUserByEmailRepositorySpy
+}
+
+const makeSut = () => {
+  const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepository()
+  const sut = new AddAccountUseCase({
+    loadUserByEmailRepository: loadUserByEmailRepositorySpy
+  })
+  return {
+    sut,
+    loadUserByEmailRepositorySpy
+  }
+}
+
 describe('AddAccount UseCase', () => {
   test('Should throw MissingParamError if no name is provided', async () => {
     const sut = new AddAccountUseCase()
@@ -31,15 +54,8 @@ describe('AddAccount UseCase', () => {
   })
 
   test('Should throw UserAlreadyExistsError if email already exists', async () => {
-    class LoadUserByEmailRepositorySpy {
-      async load(email) {
-        this.email = email
-        return this.user
-      }
-    }
-    const loadUserByEmailRepositorySpy = new LoadUserByEmailRepositorySpy()
+    const { sut, loadUserByEmailRepositorySpy } = makeSut()
     loadUserByEmailRepositorySpy.load = jest.fn().mockReturnValueOnce(true)
-    const sut = new AddAccountUseCase({ loadUserByEmailRepository: loadUserByEmailRepositorySpy })
     const addAccount = sut.addAccount({
       name: 'any_name',
       email: 'any_email@mail.com',
