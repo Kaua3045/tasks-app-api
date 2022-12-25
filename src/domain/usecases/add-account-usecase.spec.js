@@ -3,7 +3,7 @@ const { UserAlreadyExistsError } = require("../errors")
 const AddAccountUseCase = require("./add-account-usecase")
 
 describe('AddAccount UseCase', () => {
-  test('Should throw if no name is provided', async () => {
+  test('Should throw MissingParamError if no name is provided', async () => {
     const sut = new AddAccountUseCase()
     const promise = sut.addAccount({
       email: 'any_email@mail.com',
@@ -12,7 +12,7 @@ describe('AddAccount UseCase', () => {
     expect(promise).rejects.toThrow(new MissingParamError('name'))
   })
 
-  test('Should throw if no email is provided', async () => {
+  test('Should throw MissingParamError if no email is provided', async () => {
     const sut = new AddAccountUseCase()
     const promise = sut.addAccount({
       name: 'any_name',
@@ -21,7 +21,7 @@ describe('AddAccount UseCase', () => {
     expect(promise).rejects.toThrow(new MissingParamError('email'))
   })
 
-  test('Should throw if no password is provided', async () => {
+  test('Should throw MissingParamError if no password is provided', async () => {
     const sut = new AddAccountUseCase()
     const promise = sut.addAccount({
       name: 'any_name',
@@ -30,7 +30,7 @@ describe('AddAccount UseCase', () => {
     expect(promise).rejects.toThrow(new MissingParamError('password'))
   })
 
-  test('Should throw if email already exists', async () => {
+  test('Should throw UserAlreadyExistsError if email already exists', async () => {
     class LoadUserByEmailRepositorySpy {
       async load(email) {
         this.email = email
@@ -48,7 +48,7 @@ describe('AddAccount UseCase', () => {
     expect(addAccount).rejects.toThrow(new UserAlreadyExistsError())
   })
 
-  test('Should throw if no LoadUserByEmailRepository is provided', async () => {
+  test('Should throw Error if no LoadUserByEmailRepository is provided', async () => {
     const sut = new AddAccountUseCase()
     const promise = sut.addAccount({
       name: 'any_name',
@@ -59,7 +59,7 @@ describe('AddAccount UseCase', () => {
     expect(promise).rejects.toThrow()
   })
 
-  test('Should throw if LoadUserByEmailRepository has no load method', async () => {
+  test('Should throw Error if LoadUserByEmailRepository has no load method', async () => {
     const sut = new AddAccountUseCase({})
     const promise = sut.addAccount({
       name: 'any_name',
