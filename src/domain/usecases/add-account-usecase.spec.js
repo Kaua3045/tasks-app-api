@@ -26,16 +26,36 @@ const makeLoadUserByEmailRepository = () => {
   return loadUserByEmailRepositorySpy
 }
 
+const makeAddAccountRepository = () => {
+  class AddAccountRepositorySpy {
+    async saveAccount(name, email, hashedPassword) {
+      this.name = name
+      this.email = email
+      this.hashedPassword = hashedPassword
+      return this.user
+    }
+  }
+
+  const addAccountRepositorySpy = new AddAccountRepositorySpy()
+  addAccountRepositorySpy.user = {
+    password: 'hashed_password'
+  }
+  return addAccountRepositorySpy
+}
+
 const makeSut = () => {
   const encrypterSpy = makeEncrypter()
   const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepository()
+  const addAccountRepositorySpy = makeAddAccountRepository()
   const sut = new AddAccountUseCase({
     loadUserByEmailRepository: loadUserByEmailRepositorySpy,
-    encrypter: encrypterSpy
+    encrypter: encrypterSpy,
+    addAccountRepository: addAccountRepositorySpy
   })
   return {
     sut,
     loadUserByEmailRepositorySpy,
+    addAccountRepositorySpy,
     encrypterSpy
   }
 }
@@ -141,12 +161,15 @@ describe('AddAccount UseCase', () => {
   })
 
   test('Should call Encrypter with correct value', async () => {
-    const { sut, encrypterSpy } = makeSut()
+    const { sut, addAccountRepositorySpy, encrypterSpy } = makeSut()
     await sut.addAccount({
       name: 'any_name',
       email: 'any_email@mail.com',
       password: 'any_password'
     })
+    encrypterSpy.hashedPassword = 'hashed_password'
+
     expect(encrypterSpy.password).toBe('any_password')
+    expect(encrypterSpy.hashedPassword).toBe(addAccountRepositorySpy.user.password)
   })
 })
