@@ -1,5 +1,5 @@
 const { MissingParamError } = require('../../utils/errors')
-const AddTasksUseCase = require("./add-tasks-usecase")
+const AddTaskUseCase = require("./add-task-usecase")
 
 const makeFakeTaskResult = () => ({
   id: 1,
@@ -25,7 +25,7 @@ const makeAddTaskRepository = () => {
 
 const makeSut = () => {
   const addTaskRepositoryStub = makeAddTaskRepository()
-  const sut = new AddTasksUseCase({ addTaskRepository: addTaskRepositoryStub })
+  const sut = new AddTaskUseCase({ addTaskRepository: addTaskRepositoryStub })
   return {
     sut,
     addTaskRepositoryStub
@@ -34,7 +34,7 @@ const makeSut = () => {
 
 describe('AddTasks UseCase', () => {
   test('Should throw MissingParamError if no title provided', async () => {
-    const sut = new AddTasksUseCase()
+    const sut = new AddTaskUseCase()
     const promise = sut.addTask({
       description: 'any_description',
       user_id: 1
@@ -43,7 +43,7 @@ describe('AddTasks UseCase', () => {
   })
 
   test('Should throw MissingParamError if no description provided', async () => {
-    const sut = new AddTasksUseCase()
+    const sut = new AddTaskUseCase()
     const promise = sut.addTask({
       title: 'any_title',
       user_id: 1
@@ -52,7 +52,7 @@ describe('AddTasks UseCase', () => {
   })
 
   test('Should throw MissingParamError if no user_id provided', async () => {
-    const sut = new AddTasksUseCase()
+    const sut = new AddTaskUseCase()
     const promise = sut.addTask({
       title: 'any_title',
       description: 'any_description'
@@ -61,7 +61,7 @@ describe('AddTasks UseCase', () => {
   })
 
   test('Should throw Error if no AddTaskRepository is provided', async () => {
-    const sut = new AddTasksUseCase()
+    const sut = new AddTaskUseCase()
     const promise = sut.addTask({
       title: 'any_title',
       description: 'any_description',
@@ -71,7 +71,7 @@ describe('AddTasks UseCase', () => {
   })
 
   test('Should throw Error if AddTaskRepository has no saveTask method', async () => {
-    const sut = new AddTasksUseCase({})
+    const sut = new AddTaskUseCase({})
     const promise = sut.addTask({
       title: 'any_title',
       description: 'any_description',

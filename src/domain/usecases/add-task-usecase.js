@@ -1,6 +1,6 @@
 const { MissingParamError } = require("../../utils/errors")
 
-module.exports = class AddTasksUseCase {
+module.exports = class AddTaskUseCase {
   constructor({ addTaskRepository } = {}) {
     this.addTaskRepository = addTaskRepository
   }
