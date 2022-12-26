@@ -2,70 +2,61 @@ const { MissingParamError } = require("../../utils/errors")
 const { UserAlreadyExistsError } = require("../errors")
 const AddAccountUseCase = require("./add-account-usecase")
 
-const makeFakeUser = {
+const makeFakeUserResult = () => ({
+  id: 1,
+  name: 'any_name',
+  email: 'any_email@mail.com',
+  password: 'any_password',
+})
+
+const makeFakeUser = () => ({
   name: 'any_name',
   email: 'any_email@mail.com',
   password: 'any_password'
-}
+})
 
 const makeEncrypter = () => {
-  class EncrypterSpy {
+  class EncrypterStub {
     async generate(password) {
-      this.password = password
-      this.hashedPassword = password
-      return this.hashedPassword
+      const hashedPassword = 'hashed_password'
+      return hashedPassword
     }
   }
-
-  const encrypterSpy = new EncrypterSpy()
-  return encrypterSpy
+  return new EncrypterStub()
 }
 
 const makeLoadUserByEmailRepository = () => {
-  class LoadUserByEmailRepositorySpy {
+  class LoadUserByEmailRepositoryStub {
     async load(email) {
-      this.email = email
-      return this.user
+      return null
     }
   }
-
-  const loadUserByEmailRepositorySpy = new LoadUserByEmailRepositorySpy()
-  return loadUserByEmailRepositorySpy
+  return new LoadUserByEmailRepositoryStub()
 }
 
 const makeAddAccountRepository = () => {
-  class AddAccountRepositorySpy {
+  class AddAccountRepositoryStub {
     async saveAccount(name, email, password) {
-      this.name = name
-      this.email = email
-      this.password = password
-      return this.user
+      return makeFakeUserResult()
     }
   }
-
-  const addAccountRepositorySpy = new AddAccountRepositorySpy()
-  addAccountRepositorySpy.user = {
-    name: 'any_name',
-    email: 'any_email@mail.com',
-    password: 'hashed_password'
-  }
-  return addAccountRepositorySpy
+  return new AddAccountRepositoryStub()
 }
 
 const makeSut = () => {
-  const encrypterSpy = makeEncrypter()
-  const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepository()
-  const addAccountRepositorySpy = makeAddAccountRepository()
+  const encrypterStub = makeEncrypter()
+  const loadUserByEmailRepositoryStub = makeLoadUserByEmailRepository()
+  const addAccountRepositoryStub = makeAddAccountRepository()
   const sut = new AddAccountUseCase({
-    loadUserByEmailRepository: loadUserByEmailRepositorySpy,
-    encrypter: encrypterSpy,
-    addAccountRepository: addAccountRepositorySpy
+    loadUserByEmailRepository: loadUserByEmailRepositoryStub,
+    encrypter: encrypterStub,
+    addAccountRepository: addAccountRepositoryStub
   })
   return {
     sut,
-    loadUserByEmailRepositorySpy,
-    addAccountRepositorySpy,
-    encrypterSpy
+    loadUserByEmailRepositoryStub,
+    addAccountRepositoryStub,
+    encrypterStub
   }
 }
 
@@ -98,9 +89,12 @@ describe('AddAccount UseCase', () => {
   })
 
   test('Should throw UserAlreadyExistsError if email already exists', async () => {
-    const { sut, loadUserByEmailRepositorySpy } = makeSut()
-    loadUserByEmailRepositorySpy.load = jest.fn().mockReturnValueOnce(true)
-    const addAccount = sut.addAccount(makeFakeUser)
+    const { sut, loadUserByEmailRepositoryStub } = makeSut()
+    jest
+      .spyOn(loadUserByEmailRepositoryStub, 'load')
+      .mockReturnValueOnce(makeFakeUserResult())
+
+    const addAccount = sut.addAccount(makeFakeUser())
     expect(addAccount).rejects.toThrow(new UserAlreadyExistsError())
   })
 
@@ -164,35 +158,32 @@ describe('AddAccount UseCase', () => {
   })
 
   test('Should call LoadUserByEmailRepository with correct email', async () => {
-    const { sut, loadUserByEmailRepositorySpy } = makeSut()
-    await sut.addAccount(makeFakeUser)
-    expect(loadUserByEmailRepositorySpy.email).toBe('any_email@mail.com')
+    const { sut, loadUserByEmailRepositoryStub } = makeSut()
+    const loadSpy = jest.spyOn(loadUserByEmailRepositoryStub, 'load')
+    await sut.addAccount(makeFakeUser())
+
+    expect(loadSpy).toHaveBeenCalledWith('any_email@mail.com')
   })
 
   test('Should call AddAccountRepository with correct values', async () => {
-    const { sut, addAccountRepositorySpy } = makeSut()
-    await sut.addAccount(makeFakeUser)
+    const { sut, addAccountRepositoryStub } = makeSut()
+    const addSpy = jest.spyOn(addAccountRepositoryStub, 'saveAccount')
 
-    expect(addAccountRepositorySpy.email).toBe('any_email@mail.com')
-    expect(addAccountRepositorySpy.name).toBe('any_name')
-    expect(addAccountRepositorySpy.password).toBe('any_password')
+    await sut.addAccount(makeFakeUser())
+    expect(addSpy).toHaveBeenCalledWith('any_name', 'any_email@mail.com', 'hashed_password')
   })
 
   test('Should return user with success created', async () => {
-    const { sut, addAccountRepositorySpy } = makeSut()
-    await sut.addAccount(makeFakeUser)
-
-    expect(addAccountRepositorySpy.user.email).toBe('any_email@mail.com')
-    expect(addAccountRepositorySpy.user.name).toBe('any_name')
-    expect(addAccountRepositorySpy.user.password).toBe('hashed_password')
+    const { sut } = makeSut()
+    const account = await sut.addAccount(makeFakeUser())
+    expect(account.userCreated).toEqual(makeFakeUserResult())
   })
 
   test('Should call Encrypter with correct value', async () => {
-    const { sut, addAccountRepositorySpy, encrypterSpy } = makeSut()
-    await sut.addAccount(makeFakeUser)
-    encrypterSpy.hashedPassword = 'hashed_password'
+    const { sut, encrypterStub } = makeSut()
+    const encrypterSpy = jest.spyOn(encrypterStub, 'generate')
 
-    expect(encrypterSpy.password).toBe('any_password')
-    expect(encrypterSpy.hashedPassword).toBe(addAccountRepositorySpy.user.password)
+    await sut.addAccount(makeFakeUser())
+    expect(encrypterSpy).toHaveBeenCalledWith('any_password')
   })
 })
