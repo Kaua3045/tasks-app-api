@@ -2,9 +2,10 @@ const { MissingParamError } = require('../../utils/errors')
 const { UserAlreadyExistsError } = require('../errors')
 
 module.exports = class AddAccountUseCase {
-  constructor({ loadUserByEmailRepository, encrypter } = {}) {
+  constructor({ loadUserByEmailRepository, encrypter, addAccountRepository } = {}) {
     this.loadUserByEmailRepository = loadUserByEmailRepository
     this.encrypter = encrypter
+    this.addAccountRepository = addAccountRepository
   }
 
   async addAccount({ name, email, password }) {
@@ -24,7 +25,8 @@ module.exports = class AddAccountUseCase {
     }
     
     const hashedPassword = await this.encrypter.generate(password)
-    
-    return { user: 'user' }
+    const userCreated = await this.addAccountRepository.saveAccount(name, email, hashedPassword)
+
+    return userCreated
   }
 }
