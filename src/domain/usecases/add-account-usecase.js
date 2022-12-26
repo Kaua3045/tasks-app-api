@@ -25,7 +25,6 @@ module.exports = class AddAccountUseCase {
     }
     
     const hashedPassword = await this.encrypter.generate(password)
-    console.log(hashedPassword)
     const userCreated = await this.addAccountRepository.saveAccount(name, email, hashedPassword)
 
     return userCreated
