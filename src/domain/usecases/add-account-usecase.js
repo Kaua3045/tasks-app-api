@@ -2,8 +2,9 @@ const { MissingParamError } = require('../../utils/errors')
 const { UserAlreadyExistsError } = require('../errors')
 
 module.exports = class AddAccountUseCase {
-  constructor({ loadUserByEmailRepository } = {}) {
+  constructor({ loadUserByEmailRepository, encrypter } = {}) {
     this.loadUserByEmailRepository = loadUserByEmailRepository
+    this.encrypter = encrypter
   }
 
   async addAccount({ name, email, password }) {
@@ -19,9 +20,11 @@ module.exports = class AddAccountUseCase {
 
     const user = await this.loadUserByEmailRepository.load(email)
     if (user) {
-      // LOGIC
       throw new UserAlreadyExistsError()
     }
+    
+    const hashedPassword = await this.encrypter.generate(password)
+    
     return { user: 'user' }
   }
 }

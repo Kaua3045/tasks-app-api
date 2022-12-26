@@ -2,6 +2,18 @@ const { MissingParamError } = require("../../utils/errors")
 const { UserAlreadyExistsError } = require("../errors")
 const AddAccountUseCase = require("./add-account-usecase")
 
+const makeEncrypter = () => {
+  class EncrypterSpy {
+    async generate(password) {
+      this.password = password
+      return this.hashedPassword
+    }
+  }
+
+  const encrypterSpy = new EncrypterSpy()
+  return encrypterSpy
+}
+
 const makeLoadUserByEmailRepository = () => {
   class LoadUserByEmailRepositorySpy {
     async load(email) {
@@ -15,13 +27,16 @@ const makeLoadUserByEmailRepository = () => {
 }
 
 const makeSut = () => {
+  const encrypterSpy = makeEncrypter()
   const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepository()
   const sut = new AddAccountUseCase({
-    loadUserByEmailRepository: loadUserByEmailRepositorySpy
+    loadUserByEmailRepository: loadUserByEmailRepositorySpy,
+    encrypter: encrypterSpy
   })
   return {
     sut,
-    loadUserByEmailRepositorySpy
+    loadUserByEmailRepositorySpy,
+    encrypterSpy
   }
 }
 
@@ -86,6 +101,35 @@ describe('AddAccount UseCase', () => {
     expect(promise).rejects.toThrow()
   })
 
+  test('Should throw Error if no Encrypter is provided', async () => {
+    const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepository()
+    const sut = new AddAccountUseCase({
+      loadUserByEmailRepository: loadUserByEmailRepositorySpy
+    })
+
+    const promise = sut.addAccount({
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    })
+    expect(promise).rejects.toThrow()
+  })
+
+  test('Should throw Error if Encrypter has no generate method', async () => {
+    const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepository()
+    const sut = new AddAccountUseCase({
+      loadUserByEmailRepository: loadUserByEmailRepositorySpy,
+      encrypter: {}
+    })
+
+    const promise = sut.addAccount({
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    })
+    expect(promise).rejects.toThrow()
+  })
+
   test('Should call LoadUserByEmailRepository with correct email', async () => {
     const { sut, loadUserByEmailRepositorySpy } = makeSut()
     await sut.addAccount({
@@ -94,5 +138,15 @@ describe('AddAccount UseCase', () => {
       password: 'any_password'
     })
     expect(loadUserByEmailRepositorySpy.email).toBe('any_email@mail.com')
+  })
+
+  test('Should call Encrypter with correct value', async () => {
+    const { sut, encrypterSpy } = makeSut()
+    await sut.addAccount({
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    })
+    expect(encrypterSpy.password).toBe('any_password')
   })
 })
