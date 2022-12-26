@@ -150,6 +150,38 @@ describe('AddAccount UseCase', () => {
     expect(promise).rejects.toThrow()
   })
 
+  test('Should throw Error if no AddAccountRepository is provided', async () => {
+    const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepository()
+    const encrypterSpy = makeEncrypter()
+    const sut = new AddAccountUseCase({
+      loadUserByEmailRepository: loadUserByEmailRepositorySpy,
+      encrypter: encrypterSpy
+    })
+
+    const promise = sut.addAccount({
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    })
+    expect(promise).rejects.toThrow()
+  })
+
+  test('Should throw Error if AddAccountRepository has no saveAccount method', async () => {
+    const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepository()
+    const encrypterSpy = makeEncrypter()
+    const sut = new AddAccountUseCase({
+      loadUserByEmailRepository: loadUserByEmailRepositorySpy,
+      encrypter: encrypterSpy
+    })
+
+    const promise = sut.addAccount({
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    })
+    expect(promise).rejects.toThrow()
+  })
+
   test('Should call LoadUserByEmailRepository with correct email', async () => {
     const { sut, loadUserByEmailRepositorySpy } = makeSut()
     await sut.addAccount({
