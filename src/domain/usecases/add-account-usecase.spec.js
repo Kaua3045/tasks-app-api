@@ -85,4 +85,14 @@ describe('AddAccount UseCase', () => {
 
     expect(promise).rejects.toThrow()
   })
+
+  test('Should call LoadUserByEmailRepository with correct email', async () => {
+    const { sut, loadUserByEmailRepositorySpy } = makeSut()
+    await sut.addAccount({
+      name: 'any_name',
+      email: 'any_email@mail.com',
+      password: 'any_password'
+    })
+    expect(loadUserByEmailRepositorySpy.email).toBe('any_email@mail.com')
+  })
 })
