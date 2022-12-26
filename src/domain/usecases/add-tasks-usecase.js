@@ -17,6 +17,8 @@ module.exports = class AddTasksUseCase {
     }
 
     const taskCreated = await this.addTaskRepository.saveTask(title, description, user_id)
-    return taskCreated
+    return {
+      taskCreated
+    }
   }
 }
