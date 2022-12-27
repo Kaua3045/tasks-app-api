@@ -30,7 +30,7 @@ module.exports = class AddAccountController {
         return HttpResponse.badRequest(new UserAlreadyExistsError())
       }
 
-      return HttpResponse.ok({ account })
+      return HttpResponse.ok({ account: account.userCreated })
     } catch(error) {
       return HttpResponse.serverError()
     }
