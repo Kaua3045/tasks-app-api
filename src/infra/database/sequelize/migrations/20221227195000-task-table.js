@@ -17,6 +17,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DataTypes.STRING
       },
+      completed: {
+        allowNull: false,
+        type: Sequelize.DataTypes.BOOLEAN,
+        defaultValue: false
+      },
       user_id: {
         allowNull: false,
         type: Sequelize.DataTypes.UUID,

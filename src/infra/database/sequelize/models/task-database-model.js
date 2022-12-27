@@ -15,6 +15,11 @@ module.exports = class TaskDbModel extends Model {
       description: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      completed: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       }
     }, {
       sequelize,
