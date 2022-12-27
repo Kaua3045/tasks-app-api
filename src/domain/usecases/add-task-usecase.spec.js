@@ -1,4 +1,3 @@
-const { MissingParamError } = require('../../utils/errors')
 const AddTaskUseCase = require("./add-task-usecase")
 
 const makeFakeTaskResult = () => ({
@@ -33,33 +32,6 @@ const makeSut = () => {
 }
 
 describe('AddTasks UseCase', () => {
-  test('Should throw MissingParamError if no title provided', async () => {
-    const sut = new AddTaskUseCase()
-    const promise = sut.addTask({
-      description: 'any_description',
-      user_id: 1
-    })
-    expect(promise).rejects.toThrow(new MissingParamError('title'))
-  })
-
-  test('Should throw MissingParamError if no description provided', async () => {
-    const sut = new AddTaskUseCase()
-    const promise = sut.addTask({
-      title: 'any_title',
-      user_id: 1
-    })
-    expect(promise).rejects.toThrow(new MissingParamError('description'))
-  })
-
-  test('Should throw MissingParamError if no user_id provided', async () => {
-    const sut = new AddTaskUseCase()
-    const promise = sut.addTask({
-      title: 'any_title',
-      description: 'any_description'
-    })
-    expect(promise).rejects.toThrow(new MissingParamError('user_id'))
-  })
-
   test('Should throw Error if no AddTaskRepository is provided', async () => {
     const sut = new AddTaskUseCase()
     const promise = sut.addTask({

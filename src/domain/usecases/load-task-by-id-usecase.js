@@ -1,4 +1,3 @@
-const { MissingParamError } = require('../../utils/errors')
 const { TaskNotFoundError } = require('../errors')
 
 module.exports = class LoadTaskByIdUseCase {
@@ -7,10 +6,6 @@ module.exports = class LoadTaskByIdUseCase {
   }
 
   async load(id) {
-    if (!id) {
-      throw new MissingParamError('id')
-    }
-
     const task = await this.loadTaskByIdRepository.loadTask(id)
 
     if (!task) {

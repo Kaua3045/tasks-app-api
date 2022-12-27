@@ -29,12 +29,6 @@ const makeSut = () => {
 }
 
 describe('LoadTaskById UseCase', () => {
-  test('Should throw MissingParamError if no id provided', async () => {
-    const sut = new LoadTaskByIdUseCase()
-    const promise = sut.load()
-    await expect(promise).rejects.toThrow(new MissingParamError('id'))
-  })
-
   test('Should throw TaskNotFoundError if not exists task', async () => {
     const { sut, loadTaskByIdRepositoryStub } = makeSut()
     jest.spyOn(loadTaskByIdRepositoryStub, 'loadTask').mockReturnValueOnce(null)
