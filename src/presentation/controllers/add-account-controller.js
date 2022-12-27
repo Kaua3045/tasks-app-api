@@ -1,5 +1,6 @@
 const HttpResponse = require('../helpers/http-response')
 const { MissingParamError, InvalidParamError } = require('../../utils/errors')
+const { UserAlreadyExistsError } = require('../../domain/errors')
 
 module.exports = class AddAccountController {
   constructor({ addAccountUseCase, emailValidator } = {}) {
@@ -24,6 +25,10 @@ module.exports = class AddAccountController {
       }
 
       const account = await this.addAccountUseCase.addAccount({ name, email, password })
+
+      if (!account) {
+        return HttpResponse.badRequest(new UserAlreadyExistsError())
+      }
 
       return HttpResponse.ok({ account })
     } catch(error) {
