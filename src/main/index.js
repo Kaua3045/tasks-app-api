@@ -14,6 +14,7 @@ const AddAccountController = require('../presentation/controllers/add-account-co
 
 const EmailValidator = require('../utils/helpers/email-validator')
 const Encrypter = require('../utils/helpers/encrypter')
+const AddTaskController = require('../presentation/controllers/add-task-controller')
 
 const encrypter = new Encrypter()
 
@@ -31,6 +32,14 @@ const addAccountController = new AddAccountController({
   emailValidator
 })
 
+const AddTaskUseCase = require('../domain/usecases/add-task-usecase')
+const AddTaskRepository = require('../infra/repositories/add-task-db-repository')
+
+const addTaskRepository = new AddTaskRepository()
+const addTaskUseCase = new AddTaskUseCase({ addTaskRepository })
+const addTaskController = new AddTaskController({ addTaskUseCase })
+
 app.post('/', adapt(addAccountController))
+app.post('/task', adapt(addTaskController))
 
 app.listen(3000, () => console.log('Server running'))
