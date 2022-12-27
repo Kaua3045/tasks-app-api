@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize')
-const AddAccountDbRepository = require('../../repositories/add-account-db-repository')
 const databaseConfig = require('./config/databaseConfig')
 
 const AccountDbModel = require('./models/account-database-model')
