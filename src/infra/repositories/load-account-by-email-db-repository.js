@@ -2,7 +2,7 @@ const AccountDbModel = require("../database/sequelize/models/account-database-mo
 
 module.exports = class LoadAccountByEmailDbRepository {
   async load(email) {
-    const account = await AccountDbModel.findOne({ where: { email: email}})
+    const account = await AccountDbModel.findOne({ where: { email: email }})
     return account
   }
 }

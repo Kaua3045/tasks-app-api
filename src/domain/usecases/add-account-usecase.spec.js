@@ -94,8 +94,8 @@ describe('AddAccount UseCase', () => {
       .spyOn(loadUserByEmailRepositoryStub, 'load')
       .mockReturnValueOnce(makeFakeUserResult())
 
-    const addAccount = sut.addAccount(makeFakeUser())
-    expect(addAccount).rejects.toThrow(new UserAlreadyExistsError())
+    const addAccount = await sut.addAccount(makeFakeUser())
+    expect(addAccount).toBe(false)
   })
 
   test('Should throw Error if no LoadUserByEmailRepository is provided', async () => {
