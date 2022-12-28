@@ -1,5 +1,5 @@
-const TaskModel = require('../models/task-model')
-const TaskDbModel = require('../database/sequelize/models/task-database-model')
+const TaskModel = require('../../models/task-model')
+const TaskDbModel = require('../../database/sequelize/models/task-database-model')
 
 module.exports = class AddTaskDbRepository {
   async saveTask(title, description, user_id) {

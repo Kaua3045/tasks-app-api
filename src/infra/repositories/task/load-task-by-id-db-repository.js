@@ -1,4 +1,4 @@
-const TaskDbModel = require('../database/sequelize/models/task-database-model')
+const TaskDbModel = require('../../database/sequelize/models/task-database-model')
 
 module.exports = class LoadTaskByIdDbRepository {
   async loadTask(id) {

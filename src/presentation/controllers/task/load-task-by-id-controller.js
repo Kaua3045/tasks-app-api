@@ -1,6 +1,6 @@
-const HttpResponse = require('../helpers/http-response')
-const { MissingParamError } = require('../../utils/errors')
-const { TaskNotFoundError } = require('../../domain/errors')
+const HttpResponse = require('../../helpers/http-response')
+const { MissingParamError } = require('../../../utils/errors')
+const { TaskNotFoundError } = require('../../../domain/errors')
 
 module.exports = class LoadTaskByIdController {
   constructor({ loadTaskByIdUseCase } = {}) {
