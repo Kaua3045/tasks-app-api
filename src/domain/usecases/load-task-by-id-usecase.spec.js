@@ -29,12 +29,14 @@ const makeSut = () => {
 }
 
 describe('LoadTaskById UseCase', () => {
-  test('Should throw TaskNotFoundError if not exists task', async () => {
+  test('Should return null if not exists task', async () => {
     const { sut, loadTaskByIdRepositoryStub } = makeSut()
-    jest.spyOn(loadTaskByIdRepositoryStub, 'loadTask').mockReturnValueOnce(null)
+    jest
+      .spyOn(loadTaskByIdRepositoryStub, 'loadTask')
+      .mockReturnValueOnce(null)
 
-    const promise = sut.load(1)
-    expect(promise).rejects.toThrow(new TaskNotFoundError())
+    const task = await sut.load(1)
+    expect(task).toBeNull()
   })
 
   test('Should throw Error if no LoadTaskByIdRepository is provided', async () => {

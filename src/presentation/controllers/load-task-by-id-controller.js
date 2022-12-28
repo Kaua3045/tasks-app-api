@@ -1,5 +1,6 @@
 const HttpResponse = require('../helpers/http-response')
 const { MissingParamError } = require('../../utils/errors')
+const { TaskNotFoundError } = require('../../domain/errors')
 
 module.exports = class LoadTaskByIdController {
   constructor({ loadTaskByIdUseCase } = {}) {
@@ -14,6 +15,10 @@ module.exports = class LoadTaskByIdController {
       }
 
       const task = await this.loadTaskByIdUseCase.load(id)
+
+      if (!task) {
+        return HttpResponse.badRequest(new TaskNotFoundError())
+      }
 
       return HttpResponse.ok({ task: task.task })
     } catch (error) {
