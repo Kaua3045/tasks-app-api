@@ -1,6 +1,6 @@
-const HttpResponse = require('../helpers/http-response')
-const { MissingParamError, InvalidParamError } = require('../../utils/errors')
-const { UserAlreadyExistsError } = require('../../domain/errors')
+const HttpResponse = require('../../helpers/http-response')
+const { MissingParamError, InvalidParamError } = require('../../../utils/errors')
+const { UserAlreadyExistsError } = require('../../../domain/errors')
 
 module.exports = class AddAccountController {
   constructor({ addAccountUseCase, emailValidator } = {}) {

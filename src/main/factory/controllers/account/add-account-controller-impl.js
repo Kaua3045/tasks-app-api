@@ -1,9 +1,9 @@
-const AddAccountUseCase = require("../../../domain/usecases/add-account-usecase")
-const AddAccountDbRepository = require("../../../infra/repositories/add-account-db-repository")
-const LoadAccountByEmailDbRepository = require("../../../infra/repositories/load-account-by-email-db-repository")
-const AddAccountController = require("../../../presentation/controllers/add-account-controller")
-const EmailValidator = require("../../../utils/helpers/email-validator")
-const Encrypter = require("../../../utils/helpers/encrypter")
+const AddAccountUseCase = require("../../../../domain/usecases/account/add-account-usecase")
+const AddAccountDbRepository = require("../../../../infra/repositories/account/add-account-db-repository")
+const LoadAccountByEmailDbRepository = require("../../../../infra/repositories/account/load-account-by-email-db-repository")
+const AddAccountController = require("../../../../presentation/controllers/account/add-account-controller")
+const EmailValidator = require("../../../../utils/helpers/email-validator")
+const Encrypter = require("../../../../utils/helpers/encrypter")
 
 const makeAddAccountController = () => {
   const addAccountDbRepository = new AddAccountDbRepository()

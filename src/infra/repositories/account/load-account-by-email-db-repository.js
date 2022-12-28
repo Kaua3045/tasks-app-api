@@ -1,4 +1,4 @@
-const AccountDbModel = require("../database/sequelize/models/account-database-model")
+const AccountDbModel = require("../../database/sequelize/models/account-database-model")
 
 module.exports = class LoadAccountByEmailDbRepository {
   async load(email) {
