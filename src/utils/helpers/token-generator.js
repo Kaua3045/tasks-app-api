@@ -22,4 +22,18 @@ module.exports = class TokenGenerator {
       expiresIn: this.expiresTime
     })
   }
+
+  async verify(token) {
+    if (!this.secret) {
+      throw new MissingParamError('secret')
+    }
+    if (!this.expiresTime) {
+      throw new MissingParamError('expiresTime')
+    }
+    if (!token) {
+      throw new MissingParamError('token')
+    }
+
+    return await jwt.verify(token, this.secret)
+  } 
 }
