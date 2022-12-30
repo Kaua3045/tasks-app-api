@@ -35,11 +35,13 @@ const makeEncrypter = () => {
 const makeTokenGenerator = () => {
   class TokenGeneratorStub {
     async generateAccessToken(id) {
-      return null
+      return this.accessToken
     } 
   }
 
-  return new TokenGeneratorStub()
+  const tokenGeneratorStub = new TokenGeneratorStub()
+  tokenGeneratorStub.accessToken = 'any_token'
+  return tokenGeneratorStub
 }
 
 const makeSut = () => {
@@ -134,6 +136,13 @@ describe('Authenticate UseCase', () => {
     const account = await sut.auth(makeFakeAccountRequest())
 
     expect(account).toBeNull()
+  })
+
+  test('Should return an accessToken if correct credentials are provided', async () => {
+    const { sut, tokenGeneratorStub } = makeSut()
+    const auth = await sut.auth(makeFakeAccountRequest())
+    
+    expect(auth.accessToken).toBe(tokenGeneratorStub.accessToken)
   })
 
   test('Should call LoadAccountByEmailRepository with correct email', async () => {
