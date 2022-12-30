@@ -9,7 +9,7 @@ const { makeLoadTasksByUserIdController } = require('../factory/controllers/task
 const auth = require('../middlewares/auth')
 
 taskRouter.post('/create', auth, adapt(makeAddTaskController()))
-taskRouter.get('/:id', adapt(makeLoadTaskByIdController()))
-taskRouter.get('/all/:userId', adapt(makeLoadTasksByUserIdController()))
+taskRouter.get('/:id', auth, adapt(makeLoadTaskByIdController()))
+taskRouter.get('/all/:userId', auth, adapt(makeLoadTasksByUserIdController()))
 
 module.exports = taskRouter
