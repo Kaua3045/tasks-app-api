@@ -1,6 +1,6 @@
 module.exports = class JwtTokenError extends Error {
   constructor() {
-    super('Jwt invalid format or expired')
+    super('Jwt invalid')
     this.name = 'JwtMalformedError'
   }
 }
