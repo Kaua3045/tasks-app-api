@@ -172,4 +172,29 @@ describe('AddAccountController', () => {
     expect(httpResponse.statusCode).toBe(200)
     expect(httpResponse.body.account).toEqual(makeFakeResult().userCreated)
   })
+
+  test('Should throw ServerError if invalid dependencies are provided', async () => {
+    const invalid = {}
+    const addAccountUseCase = makeAddAccountUseCase()
+    const suts = [].concat(
+      new AddAccountController(),
+      new AddAccountController({}),
+      new AddAccountController({
+        addAccountUseCase: invalid
+      }),
+      new AddAccountController({
+        addAccountUseCase
+      }),
+      new AddAccountController({
+        addAccountUseCase,
+        emailValidator: invalid
+      })
+    )
+
+    for (const sut of suts) {
+      const httpReponse = await sut.handle(makeFakeRequest())
+      expect(httpReponse.statusCode).toBe(500)
+      expect(httpReponse.body.error).toBe(new ServerError().message)
+    }
+  })
 })
