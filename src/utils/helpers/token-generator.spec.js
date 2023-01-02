@@ -113,12 +113,12 @@ describe('TokenGenerator', () => {
       expect(verifySpy).toHaveBeenCalledWith('any_token', 'secret')
     })
 
-    test('Should throw Error if verify throws', async () => {
+    test('Should return null if verify returns throw or null', async () => {
       const sut = makeSut()
       jest.spyOn(jwt, 'verify').mockImplementationOnce(new Error())
-      const promise = sut.verify(token)
+      const promise = await sut.verify(token)
 
-      await expect(promise).rejects.toThrow()
+      expect(promise).toBeNull()
     })
   })
 })
