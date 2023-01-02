@@ -34,6 +34,14 @@ module.exports = class TokenGenerator {
       throw new MissingParamError('token')
     }
 
-    return await jwt.verify(token, this.secret)
+    let accessToken
+
+    try {
+      accessToken = await jwt.verify(token, this.secret)
+    } catch (error) {
+      return null
+    }
+
+    return accessToken
   } 
 }
