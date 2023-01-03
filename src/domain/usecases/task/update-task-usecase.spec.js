@@ -10,7 +10,7 @@ const makeFakeResult = () => ({
 
 const makeLoadTaskByIdRepository = () => {
   class LoadTaskByIdRepositorySpy {
-    async load(id) {
+    async loadTask(id) {
       this.id = id
       return makeFakeResult()
     }
@@ -64,7 +64,7 @@ describe('UpdateTaskUseCase', () => {
     expect(promise).rejects.toThrow()
   })
 
-  test('Should throw Error if LoadTaskByIdRepository has no load method', async () => {
+  test('Should throw Error if LoadTaskByIdRepository has no loadTask method', async () => {
     const sut = new UpdateTaskUseCase({
       loadTaskByIdRepository: {},
       updateTaskByIdRepository: makeUpdateTaskByIdRepository()
@@ -95,7 +95,7 @@ describe('UpdateTaskUseCase', () => {
 
   test('Should call LoadTaskByIdRepository with correct id', async () => {
     const { sut, loadTaskByIdRepositorySpy } = makeSut()
-    const loadSpy = jest.spyOn(loadTaskByIdRepositorySpy, 'load')
+    const loadSpy = jest.spyOn(loadTaskByIdRepositorySpy, 'loadTask')
     await sut.updateTask(1, { title: 'changed' })
 
     expect(loadSpy).toHaveBeenCalledWith(1)
@@ -112,7 +112,7 @@ describe('UpdateTaskUseCase', () => {
   test('Should return null if task not exists', async () => {
     const { sut, loadTaskByIdRepositorySpy } = makeSut()
     jest
-      .spyOn(loadTaskByIdRepositorySpy, 'load')
+      .spyOn(loadTaskByIdRepositorySpy, 'loadTask')
       .mockReturnValueOnce(null)
 
     const task = await sut.updateTask(1, { title: 'title changed' })

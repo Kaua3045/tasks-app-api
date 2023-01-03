@@ -5,7 +5,7 @@ module.exports = class UpdateTaskUseCase {
   }
 
   async updateTask(id, { title, description, completed }) {
-    const taskLoad = await this.loadTaskByIdRepository.load(id)
+    const taskLoad = await this.loadTaskByIdRepository.loadTask(id)
 
     if (!taskLoad) {
       return null
