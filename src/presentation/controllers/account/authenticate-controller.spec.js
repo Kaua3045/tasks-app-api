@@ -10,7 +10,9 @@ const makeFakeRequest = () => ({
 })
 
 const makeFakeResult = () => ({
-  accessToken: 'any_token'
+  accessToken: {
+    accessToken: 'any_token'
+  }
 })
 
 const makeAuthenticateUseCase = () => {
@@ -144,7 +146,7 @@ describe('AuthenticateController', () => {
     const httpReponse = await sut.handle(makeFakeRequest())
 
     expect(httpReponse.statusCode).toBe(200)
-    expect(httpReponse.body.accessToken).toEqual(makeFakeResult())
+    expect(httpReponse.body.token).toEqual(makeFakeResult().accessToken)
   })
 
   test('Should throw ServerError if invalid dependencies are provided', async () => {
