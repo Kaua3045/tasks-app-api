@@ -24,7 +24,12 @@ module.exports = class AccountDbModel extends Model {
     }, {
       sequelize,
       tableName: 'accounts',
-      timestamps: false
+      timestamps: false,
+      scopes: {
+        withoutPassword: {
+          attributes: { exclude: ['password'] }
+        }
+      }
     })
   }
 }
