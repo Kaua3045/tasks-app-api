@@ -23,7 +23,6 @@ module.exports = class AddTaskController {
 
       return HttpResponse.ok({ task: task.taskCreated })
     } catch(error) {
-      console.log(error)
       return HttpResponse.serverError()
     }
   }
