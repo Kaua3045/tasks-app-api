@@ -9,11 +9,6 @@ module.exports = class MeAccountController {
   async handle(httpRequest) {
     try {
       const bearerToken = httpRequest.headers
-      
-      if (!bearerToken) {
-        return HttpResponse.accessDenidedError()
-      }
-
       const token = bearerToken.authorization.split(' ')[1]
 
       if (!token) {
