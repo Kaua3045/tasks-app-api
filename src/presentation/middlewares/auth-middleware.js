@@ -1,5 +1,5 @@
 const HttpResponse = require('../helpers/http-response')
-const { MissingHeaderError } = require('../errors')
+const { MissingHeaderError } = require('../../utils/errors')
 
 module.exports = class AuthMiddleware {
   constructor({ tokenGenerator } = {}) {
