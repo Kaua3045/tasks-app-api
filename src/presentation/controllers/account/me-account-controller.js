@@ -23,7 +23,6 @@ module.exports = class MeAccountController {
 
       return HttpResponse.ok({ account })
     } catch (error) {
-      console.log(error)
       return HttpResponse.serverError()
     }
   }
