@@ -30,7 +30,7 @@ module.exports = class HttpResponse {
     return {
       statusCode: 403,
       body: {
-        error: new AccessDeniedError().message
+        error: new AccessDenidedError().message
       }
     }
   }

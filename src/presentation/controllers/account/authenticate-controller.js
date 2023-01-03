@@ -20,12 +20,12 @@ module.exports = class AuthenticateController {
         return HttpResponse.badRequest(new MissingParamError('password'))
       }
 
-      const accessToken = await this.authenticateUseCase.auth({ email, password })
-      if (!accessToken) {
+      const token = await this.authenticateUseCase.auth({ email, password })
+      if (!token) {
         return HttpResponse.unauthorizedError()
       }
 
-      return HttpResponse.ok({ accessToken })
+      return HttpResponse.ok({ token: token.accessToken })
     } catch (error) {
       return HttpResponse.serverError()
     }
