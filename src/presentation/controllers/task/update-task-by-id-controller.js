@@ -24,7 +24,6 @@ module.exports = class UpdateTaskByIdController {
 
       return HttpResponse.ok({ task })
     } catch (error) {
-      console.log(error)
       return HttpResponse.serverError()
     }
   }
