@@ -5,5 +5,5 @@ const AccessDenidedError = require('./access-denided-error')
 module.exports = {
   ServerError,
   UnauthorizedError,
-  AccessDenidedError,
+  AccessDenidedError
 }

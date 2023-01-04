@@ -22,7 +22,6 @@ module.exports = class LoadTaskByIdController {
 
       return HttpResponse.ok({ task: task.task })
     } catch (error) {
-      console.log(error)
       return HttpResponse.serverError()
     }
   }

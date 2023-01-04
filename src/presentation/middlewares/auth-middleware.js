@@ -1,4 +1,5 @@
 const HttpResponse = require('../helpers/http-response')
+const { MissingHeaderError } = require('../../utils/errors')
 
 module.exports = class AuthMiddleware {
   constructor({ tokenGenerator } = {}) {
@@ -7,6 +8,10 @@ module.exports = class AuthMiddleware {
 
   async handle(httpRequest) {
     try {
+      if (!httpRequest.headers.authorization) {
+        return HttpResponse.badRequest(new MissingHeaderError('authorization'))
+      }
+
       const token = httpRequest.headers.authorization
       const [, accessToken] = token.split(' ')
 
