@@ -7,7 +7,7 @@ const Encrypter = require("../../../../utils/helpers/encrypter")
 
 const makeAddAccountController = () => {
   const addAccountDbRepository = new AddAccountDbRepository()
-  const loadAccountByEmailRepository = new LoadAccountByEmailDbRepository()
+  const loadAccountByEmailRepository = new LoadAccountByEmailDbRepository(true)
 
   const encrypter = new Encrypter()
   const emailValidator = new EmailValidator()
