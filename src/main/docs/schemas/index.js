@@ -10,7 +10,9 @@ const {
   addTaskBodySchema,
   addTaskResponseSchema,
   listTaskByIdResponseSchema,
-  listTasksByUserIdResponseSchema
+  listTasksByUserIdResponseSchema,
+  updateTaskBodySchema,
+  updateTaskResponseSchema
 } = require('./task')
 
 const errorSchema = require('./error-schema')
@@ -25,5 +27,7 @@ module.exports = {
   addTaskResponseSchema,
   listTaskByIdResponseSchema,
   listTasksByUserIdResponseSchema,
+  updateTaskBodySchema,
+  updateTaskResponseSchema,
   errorSchema
 }

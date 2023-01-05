@@ -4,7 +4,8 @@ const {
   addAccountPath, 
   addTaskPath, 
   listTaskByIdPath, 
-  listTasksByUserIdPath
+  listTasksByUserIdPath,
+  updateTaskPath
 } = require('./paths')
 
 const { 
@@ -24,7 +25,9 @@ const {
   addTaskBodySchema,
   addTaskResponseSchema,
   listTaskByIdResponseSchema,
-  listTasksByUserIdResponseSchema
+  listTasksByUserIdResponseSchema,
+  updateTaskBodySchema,
+  updateTaskResponseSchema
 } = require('./schemas')
 
 module.exports = {
@@ -47,7 +50,8 @@ module.exports = {
     '/account/me': mePath,
     '/task/create': addTaskPath,
     '/task/{id}': listTaskByIdPath,
-    '/task/all/{userId}': listTasksByUserIdPath
+    '/task/all/{userId}': listTasksByUserIdPath,
+    '/task/update/{taskId}': updateTaskPath,
   },
   schemas: {
     accessToken: accessTokenSchema,
@@ -59,6 +63,8 @@ module.exports = {
     addTaskResponse: addTaskResponseSchema,
     listTaskByIdResponse: listTaskByIdResponseSchema,
     listTasksByUserIdResponse: listTasksByUserIdResponseSchema,
+    updateTaskBody: updateTaskBodySchema,
+    updateTaskResponse: updateTaskResponseSchema,
     error: errorSchema
   },
   components: {
