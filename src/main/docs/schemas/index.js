@@ -7,6 +7,8 @@ const authBodySchema = require('./auth-body-schema')
 const addAccountBodySchema = require('./add-account-body-schema')
 const addTaskBodySchema = require('./add-task-body-schema')
 
+const listTaskByIdResponseSchema = require('./list-task-by-id-response-schema')
+
 const errorSchema = require('./error-schema')
 
 module.exports = {
@@ -17,5 +19,6 @@ module.exports = {
   addAccountResponseSchema,
   addTaskBodySchema,
   addTaskResponseSchema,
+  listTaskByIdResponseSchema,
   errorSchema
 }
