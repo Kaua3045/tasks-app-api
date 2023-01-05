@@ -15,7 +15,7 @@ module.exports = {
     url: '/api'
   }],
   tags: [{
-    name: 'Login'
+    name: 'Account'
   }],
   paths: {
     '/auth': authPath

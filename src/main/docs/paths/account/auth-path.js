@@ -1,6 +1,6 @@
 const authPath = {
   post: {
-    tags: ['Login'],
+    tags: ['Account'],
     summary: 'API para autenticar o usuário',
     requestBody: {
       content: {

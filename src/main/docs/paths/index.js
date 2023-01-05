@@ -1,4 +1,4 @@
-const authPath = require('./auth-path')
+const authPath = require('./account/auth-path')
 
 module.exports = {
   authPath
