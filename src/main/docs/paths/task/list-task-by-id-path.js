@@ -1,4 +1,4 @@
-const loadTaskByIdPath = {
+const listTaskByIdPath = {
   get: {
     security: [{
       bearerAuth: []
@@ -34,4 +34,4 @@ const loadTaskByIdPath = {
   }
 }
 
-module.exports = loadTaskByIdPath
+module.exports = listTaskByIdPath
