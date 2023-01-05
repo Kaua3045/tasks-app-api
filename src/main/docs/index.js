@@ -1,4 +1,10 @@
-const { authPath, mePath, addAccountPath, addTaskPath, listTaskByIdPath } = require('./paths')
+const { 
+  authPath, 
+  mePath, 
+  addAccountPath, 
+  addTaskPath, 
+  listTaskByIdPath 
+} = require('./paths')
 
 const { 
   badRequest, 

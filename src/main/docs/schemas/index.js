@@ -1,13 +1,16 @@
-const accessTokenSchema = require('./access-token-schema')
-const meAccountSchema = require('./me-account-schema')
-const addAccountResponseSchema = require('./add-account-response-schema')
-const addTaskResponseSchema = require('./add-task-response-schema')
+const {
+  accessTokenSchema,
+  authBodySchema,
+  meAccountSchema,
+  addAccountBodySchema,
+  addAccountResponseSchema
+} = require('./account')
 
-const authBodySchema = require('./auth-body-schema')
-const addAccountBodySchema = require('./add-account-body-schema')
-const addTaskBodySchema = require('./add-task-body-schema')
-
-const listTaskByIdResponseSchema = require('./list-task-by-id-response-schema')
+const {
+  addTaskBodySchema,
+  addTaskResponseSchema,
+  listTaskByIdResponseSchema
+} = require('./task')
 
 const errorSchema = require('./error-schema')
 
