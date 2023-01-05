@@ -1,4 +1,4 @@
-const authPath = {
+const addTaskPath = {
   post: {
     security: [{
       bearerAuth: []
@@ -35,4 +35,4 @@ const authPath = {
   }
 }
 
-module.exports = authPath
+module.exports = addTaskPath
