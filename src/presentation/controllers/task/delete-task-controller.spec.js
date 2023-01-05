@@ -85,4 +85,17 @@ describe('DeleteTaskController', () => {
 
     expect(httpReponse.statusCode).toBe(204)
   })
+
+  test('Should throw ServerError if invalid dependencies are provided', async () => {
+    const suts = [].concat(
+      new DeleteTaskController(),
+      new DeleteTaskController({})
+    )
+
+    for (const sut of suts) {
+      const httpReponse = await sut.handle(makeFakeRequest())
+      expect(httpReponse.statusCode).toBe(500)
+      expect(httpReponse.body.error).toBe(new ServerError().message)
+    }
+  })
 })
