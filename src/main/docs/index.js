@@ -5,7 +5,8 @@ const {
   addTaskPath, 
   listTaskByIdPath, 
   listTasksByUserIdPath,
-  updateTaskPath
+  updateTaskPath,
+  deleteTaskPath
 } = require('./paths')
 
 const { 
@@ -52,6 +53,7 @@ module.exports = {
     '/task/{id}': listTaskByIdPath,
     '/task/all/{userId}': listTasksByUserIdPath,
     '/task/update/{taskId}': updateTaskPath,
+    '/task/delete/{taskId}': deleteTaskPath
   },
   schemas: {
     accessToken: accessTokenSchema,
