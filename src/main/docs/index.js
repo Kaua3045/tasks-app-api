@@ -1,4 +1,4 @@
-const { authPath, mePath } = require('./paths')
+const { authPath, mePath, addAccountPath } = require('./paths')
 
 const { 
   badRequest, 
@@ -11,7 +11,9 @@ const {
   accessTokenSchema, 
   authBodySchema,
   meAccountSchema,
-  errorSchema
+  errorSchema,
+  addAccountBodySchema,
+  addAccountResponseSchema
 } = require('./schemas')
 
 module.exports = {
@@ -28,6 +30,7 @@ module.exports = {
     name: 'Account'
   }],
   paths: {
+    '/account/create': addAccountPath,
     '/account/auth': authPath,
     '/account/me': mePath
   },
@@ -35,6 +38,8 @@ module.exports = {
     accessToken: accessTokenSchema,
     authBody: authBodySchema,
     meAccount: meAccountSchema,
+    addAccountBody: addAccountBodySchema,
+    addAccountResponse: addAccountResponseSchema,
     error: errorSchema
   },
   components: {
