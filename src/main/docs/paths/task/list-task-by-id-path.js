@@ -7,7 +7,7 @@ const listTaskByIdPath = {
     summary: 'API para listar uma task pelo id',
     parameters: [{
       in: 'path',
-      name: 'id',
+      name: 'taskId',
       required: true,
       schema: {
         type: 'string'
@@ -26,6 +26,9 @@ const listTaskByIdPath = {
       },
       400: {
         $ref: '#/components/badRequest'
+      },
+      403: {
+        $ref: '#/components/accessDenied'
       },
       500: {
         $ref: '#/components/serverError'

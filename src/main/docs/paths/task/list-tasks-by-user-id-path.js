@@ -27,6 +27,9 @@ const listTasksByUserIdPath = {
       400: {
         $ref: '#/components/badRequest'
       },
+      403: {
+        $ref: '#/components/accessDenied'
+      },
       500: {
         $ref: '#/components/serverError'
       }

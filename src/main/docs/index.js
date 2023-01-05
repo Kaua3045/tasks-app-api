@@ -50,7 +50,7 @@ module.exports = {
     '/account/auth': authPath,
     '/account/me': mePath,
     '/task/create': addTaskPath,
-    '/task/{id}': listTaskByIdPath,
+    '/task/{taskId}': listTaskByIdPath,
     '/task/all/{userId}': listTasksByUserIdPath,
     '/task/update/{taskId}': updateTaskPath,
     '/task/delete/{taskId}': deleteTaskPath
