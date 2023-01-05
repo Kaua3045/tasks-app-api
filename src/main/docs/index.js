@@ -1,8 +1,18 @@
-const { authPath } = require('./paths')
+const { authPath, mePath } = require('./paths')
 
-const { badRequest, unauthorized, serverError } = require('./components')
+const { 
+  badRequest, 
+  unauthorized, 
+  serverError, 
+  accessDenied 
+} = require('./components')
 
-const { accessTokenSchema, authBodySchema, errorSchema } = require('./schemas')
+const { 
+  accessTokenSchema, 
+  authBodySchema,
+  meAccountSchema,
+  errorSchema
+} = require('./schemas')
 
 module.exports = {
   openapi: '3.0.0',
@@ -18,16 +28,26 @@ module.exports = {
     name: 'Account'
   }],
   paths: {
-    '/auth': authPath
+    '/account/auth': authPath,
+    '/account/me': mePath
   },
   schemas: {
     accessToken: accessTokenSchema,
     authBody: authBodySchema,
+    meAccount: meAccountSchema,
     error: errorSchema
   },
   components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT'
+      }
+    },
     badRequest,
     unauthorized,
-    serverError
+    serverError,
+    accessDenied
   }
 }
