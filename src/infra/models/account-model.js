@@ -5,6 +5,7 @@ module.exports = class AccountModel {
   name
   email
   password
+  confirm
 
   constructor(name, email, password) {
     if (!this.id) {
@@ -13,5 +14,6 @@ module.exports = class AccountModel {
     this.name = name
     this.email = email
     this.password = password
+    this.confirm = false
   }
 }
