@@ -1,4 +1,5 @@
 const AddAccountUseCase = require("../../../../domain/usecases/account/add-account-usecase")
+const SendMailConfirmAccountUseCase = require("../../../../domain/usecases/account/send-mail-confirm-account-usecase")
 const AddAccountDbRepository = require("../../../../infra/repositories/account/add-account-db-repository")
 const LoadAccountByEmailDbRepository = require("../../../../infra/repositories/account/load-account-by-email-db-repository")
 const AddAccountController = require("../../../../presentation/controllers/account/add-account-controller")
@@ -16,6 +17,11 @@ const makeAddAccountController = () => {
   const tokenGenerator = new TokenGenerator(process.env.JWT_SECRET, '60m')
   const mail = new MailSend()
 
+  const sendMailConfirmAccountUseCase = new SendMailConfirmAccountUseCase({
+    mailSend: mail,
+    tokenGenerator
+  })
+
   const addAccountUseCase = new AddAccountUseCase({
     addAccountRepository: addAccountDbRepository,
     loadUserByEmailRepository: loadAccountByEmailRepository,
@@ -26,7 +32,7 @@ const makeAddAccountController = () => {
     addAccountUseCase,
     emailValidator,
     tokenGenerator,
-    mailSend: mail
+    sendMailConfirmAccountUseCase
   })
 }
 

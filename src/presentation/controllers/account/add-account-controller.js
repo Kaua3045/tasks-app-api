@@ -3,11 +3,11 @@ const { MissingParamError, InvalidParamError } = require('../../../utils/errors'
 const { UserAlreadyExistsError } = require('../../../domain/errors')
 
 module.exports = class AddAccountController {
-  constructor({ addAccountUseCase, emailValidator, tokenGenerator, mailSend } = {}) {
+  constructor({ addAccountUseCase, emailValidator, tokenGenerator, sendMailConfirmAccountUseCase } = {}) {
     this.addAccountUseCase = addAccountUseCase
     this.emailValidator = emailValidator
     this.tokenGenerator = tokenGenerator
-    this.mailSend = mailSend
+    this.sendMailConfirmAccountUseCase = sendMailConfirmAccountUseCase
   }
 
   async handle(httpRequest) {
@@ -33,10 +33,12 @@ module.exports = class AddAccountController {
       }
 
       const token = await this.tokenGenerator.generateAccessToken(account.userCreated.id)
-      this.mailSend.send(account.userCreated.email, 'Confirme Account', 'confirm-account-template', {
-        name: account.userCreated.name,
-        url: 'http://localhost:8000/api/account/confirm'
-      })
+      this.sendMailConfirmAccountUseCase
+        .sendMailConfirm(
+          account.userCreated.email, 
+          account.userCreated.name,
+          account.userCreated.id
+        )
 
       return HttpResponse.ok({ account: account.userCreated, token })
     } catch(error) {
