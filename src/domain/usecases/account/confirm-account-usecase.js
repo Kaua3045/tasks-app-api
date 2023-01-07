@@ -12,6 +12,8 @@ module.exports = class ConfirmAccountUseCase {
       return null
     }
 
+    console.log(tokenVerified)
+
     const accountLoad = await this.loadAccountByIdRepository.load(tokenVerified._id)
 
     if (!accountLoad) {
