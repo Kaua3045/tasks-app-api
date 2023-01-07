@@ -45,18 +45,32 @@ const makeEmailValidator = () => {
   return new EmailValidatorSpy()
 }
 
+const makeTokenGenerator = () => {
+  class TokenGeneratorSpy {
+    generateAccessToken(id) {
+      this.id = id
+      return 'any_token'
+    }
+  }
+
+  return new TokenGeneratorSpy()
+}
+
 const makeSut = () => {
   const addAccountUseCaseSpy = makeAddAccountUseCase()
   const emailValidatorSpy = makeEmailValidator()
+  const tokenGeneratorSpy = makeTokenGenerator()
   const sut = new AddAccountController({
     addAccountUseCase: addAccountUseCaseSpy,
-    emailValidator: emailValidatorSpy
+    emailValidator: emailValidatorSpy,
+    tokenGenerator: tokenGeneratorSpy
   })
 
   return {
     sut,
     addAccountUseCaseSpy,
-    emailValidatorSpy
+    emailValidatorSpy,
+    tokenGeneratorSpy
   }
 }
 
@@ -135,6 +149,13 @@ describe('AddAccountController', () => {
     expect(emailValidatorSpy.email).toBe(makeFakeRequest().body.email)
   })
 
+  test('Should call TokenGenerator with correct id', async () => {
+    const { sut, tokenGeneratorSpy } = makeSut()
+    await sut.handle(makeFakeRequest())
+
+    expect(tokenGeneratorSpy.id).toBe(makeFakeResult().userCreated.id)
+  })
+
   test('Should return 400 if an invalid email is provided', async () => {
     const { sut, emailValidatorSpy } = makeSut()
     jest
@@ -168,6 +189,7 @@ describe('AddAccountController', () => {
   test('Should return 200 when account was created', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest())
+    console.log(httpResponse.body)
 
     expect(httpResponse.statusCode).toBe(200)
     expect(httpResponse.body.account).toEqual(makeFakeResult().userCreated)
