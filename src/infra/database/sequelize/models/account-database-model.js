@@ -20,6 +20,11 @@ module.exports = class AccountDbModel extends Model {
       password: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      confirm: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
       }
     }, {
       sequelize,
