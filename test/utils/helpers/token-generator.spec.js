@@ -14,8 +14,8 @@ jest.mock('jsonwebtoken', () => ({
 }))
 
 const jwt = require('jsonwebtoken')
-const { MissingParamError } = require('../errors')
-const TokenGenerator = require("./token-generator")
+const { MissingParamError } = require('../../../src/utils/errors')
+const TokenGenerator = require("../../../src/utils/helpers/token-generator")
 
 const userId = '7463c662-d6ef-45ec-9257-f5eb343ab02d'
 const token = 'any_token'

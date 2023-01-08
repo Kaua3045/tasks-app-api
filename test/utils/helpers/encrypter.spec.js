@@ -1,6 +1,6 @@
-const Encrypter = require("./encrypter")
+const Encrypter = require("../../../src/utils/helpers/encrypter")
 const bcrypt = require('bcrypt')
-const { MissingParamError } = require("../errors")
+const { MissingParamError } = require("../../../src/utils/errors")
 
 jest.mock('bcrypt', () => ({
   isValid: true,
