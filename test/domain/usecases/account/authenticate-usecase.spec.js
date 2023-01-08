@@ -1,4 +1,4 @@
-const AuthenticateUseCase = require("./authenticate-usecase")
+const AuthenticateUseCase = require("../../../../src/domain/usecases/account/authenticate-usecase")
 
 const makeFakeAccountRequest = () => ({
   email: 'any_email@mail.com',

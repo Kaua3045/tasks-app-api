@@ -1,4 +1,4 @@
-const LoadTaskByIdUseCase = require("./load-task-by-id-usecase")
+const LoadTaskByIdUseCase = require("../../../../src/domain/usecases/task/load-task-by-id-usecase")
 
 const makeFakeTaskResult = () => ({
   id: 1,

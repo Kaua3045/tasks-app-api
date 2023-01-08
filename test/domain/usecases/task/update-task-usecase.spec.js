@@ -1,4 +1,4 @@
-const UpdateTaskUseCase = require("./update-task-usecase")
+const UpdateTaskUseCase = require("../../../../src/domain/usecases/task/update-task-usecase")
 
 const makeFakeResult = () => ({
   id: 1,

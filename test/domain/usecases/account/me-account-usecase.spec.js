@@ -1,4 +1,4 @@
-const MeAccountUseCase = require("./me-account-usecase")
+const MeAccountUseCase = require("../../../../src/domain/usecases/account/me-account-usecase")
 
 const tokenValue = 'any_token'
 

@@ -1,4 +1,4 @@
-const AddAccountUseCase = require("./add-account-usecase")
+const AddAccountUseCase = require("../../../../src/domain/usecases/account/add-account-usecase")
 
 const makeFakeUserResult = () => ({
   id: 1,

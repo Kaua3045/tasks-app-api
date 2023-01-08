@@ -1,4 +1,4 @@
-const LoadTasksByUserIdUseCase = require("./load-tasks-by-user-id-usecase")
+const LoadTasksByUserIdUseCase = require("../../../../src/domain/usecases/task/load-tasks-by-user-id-usecase")
 
 const userId = '7463c662-d6ef-45ec-9257-f5eb343ab02d'
 

@@ -1,4 +1,4 @@
-const DeleteTaskUseCase = require("./delete-task-usecase")
+const DeleteTaskUseCase = require("../../../../src/domain/usecases/task/delete-task-usecase")
 
 const makeFakeResult = () => ({
   id: 1,

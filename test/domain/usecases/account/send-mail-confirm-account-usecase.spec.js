@@ -1,4 +1,4 @@
-const SendMailConfirmAccountUseCase = require("./send-mail-confirm-account-usecase")
+const SendMailConfirmAccountUseCase = require("../../../../src/domain/usecases/account/send-mail-confirm-account-usecase")
 
 const makeFakeRequest = () => ({
   email: 'any_email@mail.com',

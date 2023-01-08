@@ -1,4 +1,4 @@
-const ConfirmAccountUseCase = require("./confirm-account-usecase")
+const ConfirmAccountUseCase = require("../../../../src/domain/usecases/account/confirm-account-usecase")
 
 const makeFakeResultToken = () => ({
   _id: 1
