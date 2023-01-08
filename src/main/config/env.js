@@ -6,6 +6,10 @@ module.exports = {
     password: process.env.DB_PASSWORD || 'postgres',
     database: process.env.DB_DATABASE || 'app'
   },
+  redisConfig: {
+    host: process.env.REDIS_HOST || 'localhost',
+    port: process.env.REDIS_PORT || 6379
+  },
   jwtConfig: {
     secret: process.env.JWT_SECRET || '812yh3ua9e1wyh30qf3eo0pij12',
     expiresIn: process.env.JWT_EXPIRESIN || '60m'

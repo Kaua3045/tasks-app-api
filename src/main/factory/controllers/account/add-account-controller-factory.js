@@ -11,12 +11,9 @@ const {
   makeMailSend 
 } = require("../../utils")
 
-const makeAddAccountController = () => {
-  const sendMailConfirmAccountUseCase = new SendMailConfirmAccountUseCase({
-    mailSend: makeMailSend(),
-    tokenGenerator: makeTokenGenerator()
-  })
+const mailQueue = require('../../../../infra/queue/bull-queue')
 
+const makeAddAccountController = () => {
   const addAccountUseCase = new AddAccountUseCase({
     addAccountRepository: makeAccountDbRepository(),
     loadUserByEmailRepository: makeAccountDbRepository(),
@@ -27,7 +24,7 @@ const makeAddAccountController = () => {
     addAccountUseCase,
     emailValidator: makeEmailValidator(),
     tokenGenerator: makeTokenGenerator(),
-    sendMailConfirmAccountUseCase
+    queue: mailQueue
   })
 }
 
