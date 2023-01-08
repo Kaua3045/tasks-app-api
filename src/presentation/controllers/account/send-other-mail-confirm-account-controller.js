@@ -1,4 +1,5 @@
 const { AccountHasBeenConfirmedError } = require('../../errors')
+const { UserNotFoundError } = require('../../../domain/errors')
 const HttpResponse = require('../../helpers/http-response')
 
 module.exports = class SendOtherMailConfirmAccountController {
