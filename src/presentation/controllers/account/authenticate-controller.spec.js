@@ -61,10 +61,10 @@ describe('AuthenticateController', () => {
         password: 'any_password'
       }
     }
-    const httpReponse = await sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
 
-    expect(httpReponse.statusCode).toBe(400)
-    expect(httpReponse.body.error).toBe(new MissingParamError('email').message)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body.error).toBe(new MissingParamError('email').message)
   })
 
   test('Should return 400 if no password is provided', async () => {
@@ -74,10 +74,10 @@ describe('AuthenticateController', () => {
         email: 'any_email@mail.com'
       }
     }
-    const httpReponse = await sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
 
-    expect(httpReponse.statusCode).toBe(400)
-    expect(httpReponse.body.error).toBe(new MissingParamError('password').message)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body.error).toBe(new MissingParamError('password').message)
   })
 
   test('Should return 400 if an invalid email is provided', async () => {
@@ -93,26 +93,26 @@ describe('AuthenticateController', () => {
       }
     }
 
-    const httpReponse = await sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
     
-    expect(httpReponse.statusCode).toBe(400)
-    expect(httpReponse.body.error).toBe(new InvalidParamError('email').message)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body.error).toBe(new InvalidParamError('email').message)
   })
 
   test('Should return 500 if no httpRequest is provided', async () => {
     const { sut } = makeSut()
-    const httpReponse = await sut.handle()
+    const httpResponse = await sut.handle()
 
-    expect(httpReponse.statusCode).toBe(500)
-    expect(httpReponse.body.error).toBe(new ServerError().message)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body.error).toBe(new ServerError().message)
   })
 
   test('Should return 500 if httpRequest has no body', async () => {
     const { sut } = makeSut()
-    const httpReponse = await sut.handle({})
+    const httpResponse = await sut.handle({})
 
-    expect(httpReponse.statusCode).toBe(500)
-    expect(httpReponse.body.error).toBe(new ServerError().message)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body.error).toBe(new ServerError().message)
   })
 
   test('Should call AuthenticateUseCase with correct params', async () => {
@@ -143,10 +143,10 @@ describe('AuthenticateController', () => {
 
   test('Should return 200 when valid credentials are provided', async () => {
     const { sut } = makeSut()
-    const httpReponse = await sut.handle(makeFakeRequest())
+    const httpResponse = await sut.handle(makeFakeRequest())
 
-    expect(httpReponse.statusCode).toBe(200)
-    expect(httpReponse.body.token).toEqual(makeFakeResult().accessToken)
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body.token).toEqual(makeFakeResult().accessToken)
   })
 
   test('Should throw ServerError if invalid dependencies are provided', async () => {
@@ -168,9 +168,9 @@ describe('AuthenticateController', () => {
     )
 
     for (const sut of suts) {
-      const httpReponse = await sut.handle(makeFakeRequest())
-      expect(httpReponse.statusCode).toBe(500)
-      expect(httpReponse.body.error).toBe(new ServerError().message)
+      const httpResponse = await sut.handle(makeFakeRequest())
+      expect(httpResponse.statusCode).toBe(500)
+      expect(httpResponse.body.error).toBe(new ServerError().message)
     }
   })
 })

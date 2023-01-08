@@ -57,36 +57,36 @@ describe('ConfirmAccountController', () => {
       }
     }
 
-    const httpReponse = await sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
    
-    expect(httpReponse.statusCode).toBe(400)
-    expect(httpReponse.body.error).toBe(new MissingParamError('token').message)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body.error).toBe(new MissingParamError('token').message)
   })
 
   test('Should return 400 if account not exists', async () => {
     const { sut, confirmAccountUseCaseSpy } = makeSut()
     jest.spyOn(confirmAccountUseCaseSpy, 'confirm').mockReturnValueOnce(null)
 
-    const httpReponse = await sut.handle(makeFakeRequest())
+    const httpResponse = await sut.handle(makeFakeRequest())
 
-    expect(httpReponse.statusCode).toBe(400)
-    expect(httpReponse.body.error).toBe(new UserNotFoundError().message)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body.error).toBe(new UserNotFoundError().message)
   })
 
   test('Should return 500 if no httpRequest is provided', async () => {
     const { sut } = makeSut()
-    const httpReponse = await sut.handle()
+    const httpResponse = await sut.handle()
 
-    expect(httpReponse.statusCode).toBe(500)
-    expect(httpReponse.body.error).toBe(new ServerError().message)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body.error).toBe(new ServerError().message)
   })
 
   test('Should return 500 if httpRequest has no params', async () => {
     const { sut } = makeSut()
-    const httpReponse = await sut.handle({})
+    const httpResponse = await sut.handle({})
 
-    expect(httpReponse.statusCode).toBe(500)
-    expect(httpReponse.body.error).toBe(new ServerError().message)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body.error).toBe(new ServerError().message)
   })
 
   test('Should call ConfirmAccountUseCase with correct token', async () => {
@@ -98,10 +98,10 @@ describe('ConfirmAccountController', () => {
 
   test('Should return 200 when valid token', async () => {
     const { sut } = makeSut()
-    const httpReponse = await sut.handle(makeFakeRequest())
+    const httpResponse = await sut.handle(makeFakeRequest())
 
-    expect(httpReponse.statusCode).toBe(200)
-    expect(httpReponse.body.account).toEqual(makeFakeResult())
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body.account).toEqual(makeFakeResult())
   })
 
   test('Should throw ServerError if invalid dependencies are provided', async () => {
@@ -111,9 +111,9 @@ describe('ConfirmAccountController', () => {
     )
 
     for (const sut of suts) {
-      const httpReponse = await sut.handle(makeFakeRequest())
-      expect(httpReponse.statusCode).toBe(500)
-      expect(httpReponse.body.error).toBe(new ServerError().message)
+      const httpResponse = await sut.handle(makeFakeRequest())
+      expect(httpResponse.statusCode).toBe(500)
+      expect(httpResponse.body.error).toBe(new ServerError().message)
     }
   })
 })

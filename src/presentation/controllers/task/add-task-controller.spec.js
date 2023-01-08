@@ -130,9 +130,9 @@ describe('AddTaskController', () => {
     )
 
     for (const sut of suts) {
-      const httpReponse = await sut.handle(makeFakeRequest())
-      expect(httpReponse.statusCode).toBe(500)
-      expect(httpReponse.body.error).toBe(new ServerError().message)
+      const httpResponse = await sut.handle(makeFakeRequest())
+      expect(httpResponse.statusCode).toBe(500)
+      expect(httpResponse.body.error).toBe(new ServerError().message)
     }
   })
 })

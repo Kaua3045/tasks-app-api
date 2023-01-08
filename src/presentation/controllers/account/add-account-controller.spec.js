@@ -99,9 +99,9 @@ describe('AddAccountController', () => {
       }
     }
 
-    const httpReponse = await sut.handle(httpRequest)
-    expect(httpReponse.statusCode).toBe(400)
-    expect(httpReponse.body.error).toBe(new MissingParamError('name').message)
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body.error).toBe(new MissingParamError('name').message)
   })
   
   test('Should return 400 if no email is provided', async () => {
@@ -113,9 +113,9 @@ describe('AddAccountController', () => {
       }
     }
     
-    const httpReponse = await sut.handle(httpRequest)
-    expect(httpReponse.statusCode).toBe(400)
-    expect(httpReponse.body.error).toBe(new MissingParamError('email').message)
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body.error).toBe(new MissingParamError('email').message)
   })
   
   test('Should return 400 if no password is provided', async () => {
@@ -127,25 +127,25 @@ describe('AddAccountController', () => {
       }
     }
     
-    const httpReponse = await sut.handle(httpRequest)
-    expect(httpReponse.statusCode).toBe(400)
-    expect(httpReponse.body.error).toBe(new MissingParamError('password').message)
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body.error).toBe(new MissingParamError('password').message)
   })
 
   test('Should return 500 if no httpRequest is provided', async () => {
     const { sut } = makeSut()
-    const httpReponse = await sut.handle()
+    const httpResponse = await sut.handle()
 
-    expect(httpReponse.statusCode).toBe(500)
-    expect(httpReponse.body.error).toBe(new ServerError().message)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body.error).toBe(new ServerError().message)
   })
 
   test('Should return 500 if httpRequest has no body', async () => {
     const { sut } = makeSut()
-    const httpReponse = await sut.handle({})
+    const httpResponse = await sut.handle({})
 
-    expect(httpReponse.statusCode).toBe(500)
-    expect(httpReponse.body.error).toBe(new ServerError().message)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body.error).toBe(new ServerError().message)
   })
 
   test('Should call AddAccountUseCase with correct params', async () => {
@@ -185,9 +185,9 @@ describe('AddAccountController', () => {
       }
     }
 
-    const httpReponse = await sut.handle(httpRequest)
-    expect(httpReponse.statusCode).toBe(400)
-    expect(httpReponse.body.error).toBe(new InvalidParamError('email').message)
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body.error).toBe(new InvalidParamError('email').message)
   })
 
   test('Should return 400 if an account with that email already exists', async () => {
@@ -228,9 +228,9 @@ describe('AddAccountController', () => {
     )
 
     for (const sut of suts) {
-      const httpReponse = await sut.handle(makeFakeRequest())
-      expect(httpReponse.statusCode).toBe(500)
-      expect(httpReponse.body.error).toBe(new ServerError().message)
+      const httpResponse = await sut.handle(makeFakeRequest())
+      expect(httpResponse.statusCode).toBe(500)
+      expect(httpResponse.body.error).toBe(new ServerError().message)
     }
   })
 })
