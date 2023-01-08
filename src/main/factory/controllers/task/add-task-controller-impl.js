@@ -1,12 +1,11 @@
 const AddTaskUseCase = require("../../../../domain/usecases/task/add-task-usecase")
-const AddTaskDbRepository = require("../../../../infra/repositories/task/add-task-db-repository")
 const AddTaskController = require("../../../../presentation/controllers/task/add-task-controller")
 
-const makeAddTaskController = () => {
-  const addTaskDbRepository = new AddTaskDbRepository()
+const { makeTaskDbRepository } = require('../../repositories/task/task-db-repository-factory')
 
+const makeAddTaskController = () => {
   const addTaskUseCase = new AddTaskUseCase({
-    addTaskRepository: addTaskDbRepository
+    addTaskRepository: makeTaskDbRepository()
   })
 
   return new AddTaskController({
