@@ -7,7 +7,8 @@ const {
   listTasksByUserIdPath,
   updateTaskPath,
   deleteTaskPath,
-  confirmAccountPath
+  confirmAccountPath,
+  resendAccountConfirmPath
 } = require('./paths')
 
 const { 
@@ -52,6 +53,7 @@ module.exports = {
     '/account/auth': authPath,
     '/account/me': mePath,
     '/account/confirm/{tokenConfirm}': confirmAccountPath,
+    '/account/confirm/resend': resendAccountConfirmPath,
     '/task/create': addTaskPath,
     '/task/{taskId}': listTaskByIdPath,
     '/task/all/{userId}': listTasksByUserIdPath,
