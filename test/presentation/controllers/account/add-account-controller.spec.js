@@ -1,7 +1,7 @@
-const { UserAlreadyExistsError } = require("../../../domain/errors")
-const { MissingParamError, InvalidParamError } = require("../../../utils/errors")
-const { ServerError } = require("../../errors")
-const AddAccountController = require("./add-account-controller")
+const { UserAlreadyExistsError } = require("../../../../src/domain/errors")
+const { MissingParamError, InvalidParamError } = require("../../../../src/utils/errors")
+const { ServerError } = require("../../../../src/presentation/errors")
+const AddAccountController = require("../../../../src/presentation/controllers/account/add-account-controller")
 
 const makeFakeRequest = () => ({
   body: {

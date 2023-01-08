@@ -1,6 +1,6 @@
-const { UserNotFoundError } = require('../../../domain/errors')
-const { AccessDenidedError, ServerError } = require('../../errors')
-const MeAccountController = require('./me-account-controller')
+const { UserNotFoundError } = require('../../../../src/domain/errors')
+const { AccessDenidedError, ServerError } = require('../../../../src/presentation/errors')
+const MeAccountController = require('../../../../src/presentation/controllers/account/me-account-controller')
 
 const makeFakeResult = () => ({
   id: 1,

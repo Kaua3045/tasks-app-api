@@ -1,6 +1,6 @@
-const { MissingParamError } = require("../../../utils/errors")
-const { ServerError } = require("../../errors")
-const AddTaskController = require("./add-task-controller")
+const { MissingParamError } = require("../../../../src/utils/errors")
+const { ServerError } = require("../../../../src/presentation/errors")
+const AddTaskController = require("../../../../src/presentation/controllers/task/add-task-controller")
 
 const makeFakeRequest = () => ({
   body: {

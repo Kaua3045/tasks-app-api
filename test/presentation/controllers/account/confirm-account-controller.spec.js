@@ -1,7 +1,7 @@
-const ConfirmAccountController = require('./confirm-account-controller')
-const { MissingParamError } = require("../../../utils/errors")
-const { UserNotFoundError } = require('../../../domain/errors')
-const { ServerError } = require('../../errors')
+const ConfirmAccountController = require('../../../../src/presentation/controllers/account/confirm-account-controller')
+const { MissingParamError } = require("../../../../src/utils/errors")
+const { UserNotFoundError } = require('../../../../src/domain/errors')
+const { ServerError } = require('../../../../src/presentation/errors')
 
 const makeFakeRequest = () => ({
   params: {

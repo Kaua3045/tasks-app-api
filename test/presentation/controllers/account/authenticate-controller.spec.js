@@ -1,6 +1,6 @@
-const { MissingParamError, InvalidParamError } = require("../../../utils/errors")
-const { ServerError, UnauthorizedError } = require("../../errors")
-const AuthenticateController = require("./authenticate-controller")
+const { MissingParamError, InvalidParamError } = require("../../../../src/utils/errors")
+const { ServerError, UnauthorizedError } = require("../../../../src/presentation/errors")
+const AuthenticateController = require("../../../../src/presentation/controllers/account/authenticate-controller")
 
 const makeFakeRequest = () => ({
   body: {

@@ -1,7 +1,7 @@
-const { TaskNotFoundError } = require("../../../domain/errors")
-const { MissingParamError } = require("../../../utils/errors")
-const { ServerError } = require("../../errors")
-const LoadTaskByIdController = require("./load-task-by-id-controller")
+const { TaskNotFoundError } = require("../../../../src/domain/errors")
+const { MissingParamError } = require("../../../../src/utils/errors")
+const { ServerError } = require("../../../../src/presentation/errors")
+const LoadTaskByIdController = require("../../../../src/presentation/controllers/task/load-task-by-id-controller")
 
 const makeFakeRequest = () => ({
   params: {

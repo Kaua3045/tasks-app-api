@@ -1,6 +1,10 @@
-const { UserNotFoundError } = require("../../../domain/errors")
-const { AccessDenidedError, ServerError, AccountHasBeenConfirmedError } = require("../../errors")
-const SendOtherMailConfirmAccountController = require("./send-other-mail-confirm-account-controller")
+const { UserNotFoundError } = require("../../../../src/domain/errors")
+const { 
+  AccessDenidedError, 
+  ServerError, 
+  AccountHasBeenConfirmedError 
+} = require("../../../../src/presentation/errors")
+const SendOtherMailConfirmAccountController = require("../../../../src/presentation/controllers/account/send-other-mail-confirm-account-controller")
 
 const makeFakeRequest = () => ({
   headers: {
