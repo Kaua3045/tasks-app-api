@@ -1,6 +1,8 @@
+const envConfig = require('./env')
+
 module.exports = {
-  host: process.env.MAIL_HOST,
-  port: process.env.MAIL_PORT,
-  user: process.env.MAIL_USER,
-  password: process.env.MAIL_PASSWORD
+  host: envConfig.mailConfig.host,
+  port: envConfig.mailConfig.port,
+  user: envConfig.mailConfig.user,
+  password: envConfig.mailConfig.password
 }

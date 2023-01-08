@@ -1,7 +1,8 @@
 const TokenGenerator = require("../../../utils/helpers/token-generator")
+const envConfig = require('../../config/env')
 
 const makeTokenGenerator = () => {
-  const tokenGenerator = new TokenGenerator(process.env.JWT_SECRET, process.env.JWT_EXPIRESIN)
+  const tokenGenerator = new TokenGenerator(envConfig.jwtConfig.secret, envConfig.jwtConfig.expiresIn)
   return tokenGenerator
 }
 
