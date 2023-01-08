@@ -6,7 +6,9 @@ const {
   listTaskByIdPath, 
   listTasksByUserIdPath,
   updateTaskPath,
-  deleteTaskPath
+  deleteTaskPath,
+  confirmAccountPath,
+  resendAccountConfirmPath
 } = require('./paths')
 
 const { 
@@ -28,7 +30,8 @@ const {
   listTaskByIdResponseSchema,
   listTasksByUserIdResponseSchema,
   updateTaskBodySchema,
-  updateTaskResponseSchema
+  updateTaskResponseSchema,
+  accountConfirmedResponseSchema
 } = require('./schemas')
 
 module.exports = {
@@ -49,6 +52,8 @@ module.exports = {
     '/account/create': addAccountPath,
     '/account/auth': authPath,
     '/account/me': mePath,
+    '/account/confirm/{tokenConfirm}': confirmAccountPath,
+    '/account/confirm/resend': resendAccountConfirmPath,
     '/task/create': addTaskPath,
     '/task/{taskId}': listTaskByIdPath,
     '/task/all/{userId}': listTasksByUserIdPath,
@@ -61,6 +66,7 @@ module.exports = {
     meAccount: meAccountSchema,
     addAccountBody: addAccountBodySchema,
     addAccountResponse: addAccountResponseSchema,
+    accountConfirmedResponse: accountConfirmedResponseSchema,
     addTaskBody: addTaskBodySchema,
     addTaskResponse: addTaskResponseSchema,
     listTaskByIdResponse: listTaskByIdResponseSchema,

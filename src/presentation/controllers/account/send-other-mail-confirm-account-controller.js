@@ -3,9 +3,9 @@ const { UserNotFoundError } = require('../../../domain/errors')
 const HttpResponse = require('../../helpers/http-response')
 
 module.exports = class SendOtherMailConfirmAccountController {
-  constructor({ sendMailConfirmAccountUseCase, meAccountUseCase } = {}) {
-    this.sendMailConfirmAccountUseCase = sendMailConfirmAccountUseCase
+  constructor({ meAccountUseCase, queue } = {}) {
     this.meAccountUseCase = meAccountUseCase
+    this.queue = queue
   }
 
   async handle(httpRequest) {
@@ -27,12 +27,7 @@ module.exports = class SendOtherMailConfirmAccountController {
         return HttpResponse.badRequest(new AccountHasBeenConfirmedError())
       }
 
-      this.sendMailConfirmAccountUseCase
-        .sendMailConfirm(
-          account.email, 
-          account.name,
-          account.id
-        )
+      await this.queue.add('MailConfirmAccount', { account })
 
       return HttpResponse.noContent()
     } catch (error) {

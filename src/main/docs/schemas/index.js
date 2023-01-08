@@ -3,7 +3,8 @@ const {
   authBodySchema,
   meAccountSchema,
   addAccountBodySchema,
-  addAccountResponseSchema
+  addAccountResponseSchema,
+  accountConfirmedResponseSchema
 } = require('./account')
 
 const {
@@ -23,6 +24,7 @@ module.exports = {
   meAccountSchema,
   addAccountBodySchema,
   addAccountResponseSchema,
+  accountConfirmedResponseSchema,
   addTaskBodySchema,
   addTaskResponseSchema,
   listTaskByIdResponseSchema,
