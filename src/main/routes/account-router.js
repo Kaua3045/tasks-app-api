@@ -8,10 +8,12 @@ const { makeMeAccountController } = require('../factory/controllers/account/me-a
 const { makeAddAccountController } = require('../factory/controllers/account/add-account-controller-impl')
 const { makeAuthenticateController } = require('../factory/controllers/account/authenticate-controller-impl')
 const { makeConfirmAccountController } = require('../factory/controllers/account/confirm-account-controller-impl')
+const { makeSendOtherMailConfirmAccountController } = require('../factory/controllers/account/send-otther-mail-confirm-account-controller-impl')
 
 accountRouter.get('/me', auth, adapt(makeMeAccountController()))
 accountRouter.post('/create', adapt(makeAddAccountController()))
 accountRouter.post('/auth', adapt(makeAuthenticateController()))
 accountRouter.patch('/confirm/:token', adapt(makeConfirmAccountController()))
+accountRouter.get('/confirm/resend', auth, adapt(makeSendOtherMailConfirmAccountController()))
 
 module.exports = accountRouter
