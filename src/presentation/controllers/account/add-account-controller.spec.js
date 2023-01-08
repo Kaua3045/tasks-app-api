@@ -56,21 +56,36 @@ const makeTokenGenerator = () => {
   return new TokenGeneratorSpy()
 }
 
+const makeSendMailConfirmation = () => {
+  class sendMailConfirmationSpy {
+    sendMailConfirm(email, name, id) {
+      this.email = email
+      this.name = name
+      this.id = id
+    }
+  }
+
+  return new sendMailConfirmationSpy()
+}
+
 const makeSut = () => {
   const addAccountUseCaseSpy = makeAddAccountUseCase()
   const emailValidatorSpy = makeEmailValidator()
   const tokenGeneratorSpy = makeTokenGenerator()
+  const sendMailConfirmAccountUseCaseSpy = makeSendMailConfirmation()
   const sut = new AddAccountController({
     addAccountUseCase: addAccountUseCaseSpy,
     emailValidator: emailValidatorSpy,
-    tokenGenerator: tokenGeneratorSpy
+    tokenGenerator: tokenGeneratorSpy,
+    sendMailConfirmAccountUseCase: sendMailConfirmAccountUseCaseSpy
   })
 
   return {
     sut,
     addAccountUseCaseSpy,
     emailValidatorSpy,
-    tokenGeneratorSpy
+    tokenGeneratorSpy,
+    sendMailConfirmAccountUseCaseSpy
   }
 }
 
@@ -189,7 +204,6 @@ describe('AddAccountController', () => {
   test('Should return 200 when account was created', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest())
-    console.log(httpResponse.body)
 
     expect(httpResponse.statusCode).toBe(200)
     expect(httpResponse.body.account).toEqual(makeFakeResult().userCreated)

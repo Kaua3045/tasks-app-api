@@ -42,6 +42,7 @@ module.exports = class AddAccountController {
 
       return HttpResponse.ok({ account: account.userCreated, token })
     } catch(error) {
+      console.log(error)
       return HttpResponse.serverError()
     }
   }

@@ -20,7 +20,7 @@ const makeFakeResultUpdate = () => ({
 
 const makeLoadAccountByIdRepository = () => {
   class LoadAccountByIdRepositorySpy {
-    async load(id) {
+    async loadById(id) {
       this.id = id
       return makeFakeResultLoad()
     }
@@ -151,7 +151,7 @@ describe('ConfirmAccountUseCase', () => {
 
   test('Should call LoadAccountByIdRepository with correct id', async () => {
     const { sut, loadAccountByIdRepositorySpy } = makeSut()
-    const loadSpy = jest.spyOn(loadAccountByIdRepositorySpy, 'load')
+    const loadSpy = jest.spyOn(loadAccountByIdRepositorySpy, 'loadById')
     
     await sut.confirm('any_token')
 

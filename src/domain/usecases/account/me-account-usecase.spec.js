@@ -25,7 +25,7 @@ const makeTokenGenerator = () => {
 
 const makeLoadAccountByIdRepository = () => {
   class LoadAccountByIdRepositorySpy {
-    async load(id) {
+    async loadById(id) {
       this.id = id
       return makeLoadAccountResult()
     }
@@ -63,7 +63,7 @@ describe('MeAccountUseCase', () => {
   test('Should return null if not load account', async () => {
     const { sut, loadAccountByIdRepositorySpy } = makeSut()
     jest
-      .spyOn(loadAccountByIdRepositorySpy, 'load')
+      .spyOn(loadAccountByIdRepositorySpy, 'loadById')
       .mockReturnValueOnce(null)
     
     const account = await sut.meAccount(tokenValue)
@@ -110,7 +110,7 @@ describe('MeAccountUseCase', () => {
 
   test('Should call LoadAccountByIdRepository with correct id', async () => {
     const { sut, loadAccountByIdRepositorySpy } = makeSut()
-    const loadSpy = jest.spyOn(loadAccountByIdRepositorySpy, 'load')
+    const loadSpy = jest.spyOn(loadAccountByIdRepositorySpy, 'loadById')
     await sut.meAccount(tokenValue)
 
     expect(loadSpy).toHaveBeenCalledWith(1)
