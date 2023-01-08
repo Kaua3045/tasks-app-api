@@ -3,7 +3,7 @@ const { makeMailSend, makeTokenGenerator } = require('../../../main/factory/util
 
 module.exports = {
   key: 'MailConfirmAccount',
-  async sendMail({ data }) {
+  async handle({ data }) {
     const { account } = data
     
     const sendMailConfirmAccountUseCase = new SendMailConfirmAccountUseCase({
@@ -16,10 +16,5 @@ module.exports = {
       account.name,
       account.id
     )
-
-    // await mailSend.send(account.email, 'Confirm Account', 'confirm-account-template', {
-    //   name: account.name,
-    //   url: `http://localhost:8000/api/account/confirm/${token}`
-    // })
   }
 }

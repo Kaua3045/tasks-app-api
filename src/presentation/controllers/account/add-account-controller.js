@@ -33,7 +33,7 @@ module.exports = class AddAccountController {
       }
 
       const token = await this.tokenGenerator.generateAccessToken(account.userCreated.id)
-      await this.queue.add({ account: account.userCreated })
+      await this.queue.add('MailConfirmAccount', { account: account.userCreated })
 
       return HttpResponse.ok({ account: account.userCreated, token })
     } catch(error) {
