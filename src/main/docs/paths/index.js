@@ -1,4 +1,4 @@
-const { authPath, mePath, addAccountPath } = require('./account')
+const { authPath, mePath, addAccountPath, confirmAccountPath } = require('./account')
 const { 
   addTaskPath, 
   listTaskByIdPath, 
@@ -11,6 +11,7 @@ module.exports = {
   authPath,
   mePath,
   addAccountPath,
+  confirmAccountPath,
   addTaskPath,
   listTaskByIdPath,
   listTasksByUserIdPath,

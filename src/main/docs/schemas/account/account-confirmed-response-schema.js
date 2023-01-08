@@ -1,4 +1,4 @@
-const addAccountResponseSchema = {
+const accountConfirmedResponseSchema = {
   type: 'object',
   properties: {
     id: {
@@ -16,11 +16,8 @@ const addAccountResponseSchema = {
     confirm: {
       type: 'boolean',
       default: false
-    },
-    token: {
-      type: 'string'
     }
   }
 }
 
-module.exports = addAccountResponseSchema
+module.exports = accountConfirmedResponseSchema
