@@ -1,3 +1,6 @@
+const AccountModel = require('../../models/account-model')
+const AccountDbModel = require('../../database/sequelize/models/account-database-model')
+
 module.exports = class AccountDbRepository {
   async saveAccount(name, email, password) {
     const account = new AccountModel(name, email, password)
