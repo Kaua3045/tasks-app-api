@@ -6,7 +6,7 @@ module.exports = class AuthenticateUseCase {
   }
 
   async auth({ email, password }) {
-    const account = await this.loadAccountByEmailRepository.load(email)
+    const account = await this.loadAccountByEmailRepository.loadByEmail(email, false)
 
     if (!account) {
       return null

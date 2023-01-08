@@ -47,10 +47,10 @@ describe('MeAccountController', () => {
       }
     }
 
-    const httpReponse = await sut.handle(httpRequest)
+    const httpResponse = await sut.handle(httpRequest)
    
-    expect(httpReponse.statusCode).toBe(403)
-    expect(httpReponse.body.error).toBe(new AccessDenidedError().message)
+    expect(httpResponse.statusCode).toBe(403)
+    expect(httpResponse.body.error).toBe(new AccessDenidedError().message)
   })
 
   test('Should return 400 if account not exists', async () => {
@@ -67,18 +67,18 @@ describe('MeAccountController', () => {
 
   test('Should return 500 if no httpRequest is provided', async () => {
     const { sut } = makeSut()
-    const httpReponse = await sut.handle()
+    const httpResponse = await sut.handle()
 
-    expect(httpReponse.statusCode).toBe(500)
-    expect(httpReponse.body.error).toBe(new ServerError().message)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body.error).toBe(new ServerError().message)
   })
 
   test('Should return 500 if httpRequest has no header', async () => {
     const { sut } = makeSut()
-    const httpReponse = await sut.handle({})
+    const httpResponse = await sut.handle({})
 
-    expect(httpReponse.statusCode).toBe(500)
-    expect(httpReponse.body.error).toBe(new ServerError().message)
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body.error).toBe(new ServerError().message)
   })
 
   test('Should call MeAccountUseCase with correct accessToken', async () => {
@@ -103,9 +103,9 @@ describe('MeAccountController', () => {
     )
 
     for (const sut of suts) {
-      const httpReponse = await sut.handle(makeFakeRequest())
-      expect(httpReponse.statusCode).toBe(500)
-      expect(httpReponse.body.error).toBe(new ServerError().message)
+      const httpResponse = await sut.handle(makeFakeRequest())
+      expect(httpResponse.statusCode).toBe(500)
+      expect(httpResponse.body.error).toBe(new ServerError().message)
     }
   })
 })

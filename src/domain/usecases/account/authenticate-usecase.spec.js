@@ -14,7 +14,7 @@ const makeFakeAccountResult = () => ({
 
 const makeLoadAccountByEmailRepository = () => {
   class LoadAccountByEmailRepositoryStub {
-    async load(email) {
+    async loadByEmail(email) {
       return makeFakeAccountResult()
     }
   }
@@ -120,7 +120,7 @@ describe('Authenticate UseCase', () => {
   test('Should return null if account does not exists', async () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut()
     jest
-      .spyOn(loadAccountByEmailRepositoryStub, 'load')
+      .spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
       .mockReturnValueOnce(null)
 
     const account = await sut.auth(makeFakeAccountRequest())
@@ -147,10 +147,10 @@ describe('Authenticate UseCase', () => {
 
   test('Should call LoadAccountByEmailRepository with correct email', async () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut()
-    const loadSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'load')
+    const loadSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail')
     await sut.auth({ email: 'any_email@mail.com', password: 'any_password' })
 
-    expect(loadSpy).toHaveBeenCalledWith('any_email@mail.com')
+    expect(loadSpy).toHaveBeenCalledWith('any_email@mail.com', false)
   })
 
   test('Should call Encrypter with correct value', async () => {

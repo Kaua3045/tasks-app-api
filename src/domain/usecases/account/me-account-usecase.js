@@ -11,7 +11,7 @@ module.exports = class MeAccountUseCase {
       return null
     }
 
-    const account = await this.loadAccountByIdRepository.load(tokenVerified._id)
+    const account = await this.loadAccountByIdRepository.loadById(tokenVerified._id)
 
     if (!account) {
       return null

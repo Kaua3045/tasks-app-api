@@ -1,19 +1,15 @@
 const ConfirmAccountUseCase = require("../../../../domain/usecases/account/confirm-account-usecase")
 const ConfirmAccountController = require("../../../../presentation/controllers/account/confirm-account-controller")
-const LoadAccountByIdDbRepository = require('../../../../infra/repositories/account/load-account-by-id-db-repository')
-const ConfirmAccountDbRepository = require('../../../../infra/repositories/account/confirm-account-db-repository')
 
-const TokenGenerator = require('../../../../utils/helpers/token-generator')
+const { makeAccountDbRepository } = require('../../repositories/account/account-db-repository-factory')
+
+const { makeTokenGenerator } = require('../../utils')
 
 const makeConfirmAccountController = () => {
-  const tokenGenerator = new TokenGenerator(process.env.JWT_SECRET, '60m')
-  const loadAccountByIdDbRepository = new LoadAccountByIdDbRepository()
-  const confirmAccountDbRepository = new ConfirmAccountDbRepository()
-
   const confirmAccountUseCase = new ConfirmAccountUseCase({
-    tokenGenerator,
-    loadAccountByIdRepository: loadAccountByIdDbRepository,
-    confirmAccountRepository: confirmAccountDbRepository
+    tokenGenerator: makeTokenGenerator(),
+    loadAccountByIdRepository: makeAccountDbRepository(),
+    confirmAccountRepository: makeAccountDbRepository()
   })
 
   return new ConfirmAccountController({

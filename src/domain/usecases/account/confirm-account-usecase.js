@@ -12,9 +12,7 @@ module.exports = class ConfirmAccountUseCase {
       return null
     }
 
-    console.log(tokenVerified)
-
-    const accountLoad = await this.loadAccountByIdRepository.load(tokenVerified._id)
+    const accountLoad = await this.loadAccountByIdRepository.loadById(tokenVerified._id)
 
     if (!accountLoad) {
       return null

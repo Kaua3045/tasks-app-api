@@ -81,9 +81,9 @@ describe('DeleteTaskController', () => {
 
   test('Should return 200 if task deleted', async () => {
     const { sut }  = makeSut()
-    const httpReponse = await sut.handle(makeFakeRequest())
+    const httpResponse = await sut.handle(makeFakeRequest())
 
-    expect(httpReponse.statusCode).toBe(204)
+    expect(httpResponse.statusCode).toBe(204)
   })
 
   test('Should throw ServerError if invalid dependencies are provided', async () => {
@@ -93,9 +93,9 @@ describe('DeleteTaskController', () => {
     )
 
     for (const sut of suts) {
-      const httpReponse = await sut.handle(makeFakeRequest())
-      expect(httpReponse.statusCode).toBe(500)
-      expect(httpReponse.body.error).toBe(new ServerError().message)
+      const httpResponse = await sut.handle(makeFakeRequest())
+      expect(httpResponse.statusCode).toBe(500)
+      expect(httpResponse.body.error).toBe(new ServerError().message)
     }
   })
 })

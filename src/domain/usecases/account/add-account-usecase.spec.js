@@ -25,7 +25,7 @@ const makeEncrypter = () => {
 
 const makeLoadUserByEmailRepository = () => {
   class LoadUserByEmailRepositoryStub {
-    async load(email) {
+    async loadByEmail(email) {
       return null
     }
   }
@@ -62,7 +62,7 @@ describe('AddAccount UseCase', () => {
   test('Should return false if email already exists', async () => {
     const { sut, loadUserByEmailRepositoryStub } = makeSut()
     jest
-      .spyOn(loadUserByEmailRepositoryStub, 'load')
+      .spyOn(loadUserByEmailRepositoryStub, 'loadByEmail')
       .mockReturnValueOnce(makeFakeUserResult())
 
     const addAccount = await sut.addAccount(makeFakeUser())
@@ -130,7 +130,7 @@ describe('AddAccount UseCase', () => {
 
   test('Should call LoadUserByEmailRepository with correct email', async () => {
     const { sut, loadUserByEmailRepositoryStub } = makeSut()
-    const loadSpy = jest.spyOn(loadUserByEmailRepositoryStub, 'load')
+    const loadSpy = jest.spyOn(loadUserByEmailRepositoryStub, 'loadByEmail')
     await sut.addAccount(makeFakeUser())
 
     expect(loadSpy).toHaveBeenCalledWith('any_email@mail.com')
