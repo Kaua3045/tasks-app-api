@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres
+    container_name: postgresContainer
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_DB: ${DB_DATABASE}
+    ports: 
+      - 5432:5432
+  api:
+    container_name: api-container
+    env_file: 
+      - ./.env
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres_db
