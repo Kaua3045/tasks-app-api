@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node src/main/index.js && node src/main/queue-server.js",
     "test": "jest --color --watch",
     "dev": "nodemon src/main/index.js",
     "dev:queue": "nodemon src/main/queue-server.js"
