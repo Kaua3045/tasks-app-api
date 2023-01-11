@@ -9,7 +9,7 @@ Essa é uma API REST para criação de tarefas (TODO-LIST)
 # Documentação
 
 Para ter acesso a documentação para orientá-lo no uso desta API, consulte
-[SWAGGER DOCS](api-swagger-doc)
+[Documentação](api-swagger-doc)
 
 # Para contribuir com o projeto
 
