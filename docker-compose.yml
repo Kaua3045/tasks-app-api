@@ -1,6 +1,13 @@
 version: '3.8'
 
 services:
+  nginx:
+    image: nginx:1.23.3-alpine
+    container_name: nginx
+    ports: 
+      - 8000:80
+    depends_on:
+      - api
   postgres_db:
     image: postgres
     container_name: postgresContainer
@@ -19,3 +26,4 @@ services:
       - 3000:3000
     depends_on:
       - postgres_db
+      - redis_db
