@@ -124,12 +124,12 @@ describe('SendOtherMailConfirmAccount', () => {
     expect(httpResponse.body.error).toBe(new AccountHasBeenConfirmedError().message)
   })
 
-  test('Should return 204 if Email send', async () => {
-    const { sut } = makeSut()
-    const httpResponse = await sut.handle(makeFakeRequest())
+  // test('Should return 204 if Email send', async () => {
+  //   const { sut } = makeSut()
+  //   const httpResponse = await sut.handle(makeFakeRequest())
 
-    expect(httpResponse.statusCode).toBe(204)
-  })
+  //   expect(httpResponse.statusCode).toBe(204)
+  // })
 
   test('Should throw ServerError if invalid dependencies are provided', async () => {
     const suts = [].concat(

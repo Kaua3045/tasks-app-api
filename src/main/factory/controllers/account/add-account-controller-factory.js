@@ -9,8 +9,6 @@ const {
   makeEmailValidator, 
 } = require("../../utils")
 
-const queue = require('../../../../infra/queue/bull-queue')
-
 const makeAddAccountController = () => {
   const addAccountUseCase = new AddAccountUseCase({
     addAccountRepository: makeAccountDbRepository(),
@@ -21,8 +19,7 @@ const makeAddAccountController = () => {
   return new AddAccountController({
     addAccountUseCase,
     emailValidator: makeEmailValidator(),
-    tokenGenerator: makeTokenGenerator(),
-    queue
+    tokenGenerator: makeTokenGenerator()
   })
 }
 
