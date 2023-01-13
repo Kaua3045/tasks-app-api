@@ -6,6 +6,9 @@ Essa é uma API REST para criação de tarefas (TODO-LIST)
 
 É totalmente gratuito e de código aberto
 
+# AVISO
+API desenvolvida meramente para fins de estudos, pode ser desativada a qualquer momento e dados podem ser perdidos (NÃO USEM EM PRODUÇÃO)
+
 # Documentação
 
 Para ter acesso a documentação para orientá-lo no uso desta API, consulte
