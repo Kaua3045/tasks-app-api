@@ -10,9 +10,6 @@ const updateTaskBodySchema = {
     completed: {
       type: 'boolean',
       default: false
-    },
-    user_id: {
-      type: 'string'
     }
   },
 }

@@ -9,7 +9,7 @@ Essa é uma API REST para criação de tarefas (TODO-LIST)
 # Documentação
 
 Para ter acesso a documentação para orientá-lo no uso desta API, consulte
-[Documentação](api-swagger-doc)
+[Documentação](https://tasks.app.api.kaua.dev/api-docs/)
 
 # Para contribuir com o projeto
 
